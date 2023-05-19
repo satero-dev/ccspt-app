@@ -1,0 +1,23 @@
+.search-menu {
+  /*background-color: red;*/
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  z-index: 10000000;
+  font-size: small;
+}
+
+.options {
+  display: block;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.sub-options {
+  display: block;
+  font-size: small;
+  font-weight: 300;
+}
