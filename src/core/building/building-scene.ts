@@ -24,6 +24,9 @@ export class BuildingScene {
   private properties: { [fragID: string]: any } = {};
   private propID: any;
   private gui: any;
+  private translucentMat = new THREE.MeshLambertMaterial({ transparent: true, opacity: 0.4 });
+  private translucent: boolean = false;
+
 
   get container() {
     const domElement = this.components.renderer.get().domElement;
@@ -74,8 +77,8 @@ export class BuildingScene {
     ambientLight.intensity = 0.5;
     scene.add(ambientLight);
 
-    const grid = new OBC.SimpleGrid(this.components);
-    this.components.tools.add(grid);
+    //const grid = new OBC.SimpleGrid(this.components);
+    //this.components.tools.add(grid);
 
     this.fragments = new OBC.Fragments(this.components);
 
@@ -97,28 +100,22 @@ export class BuildingScene {
 
 
     const redMaterial = new THREE.MeshBasicMaterial({ color: '#FF0000' });
-    const translucentMat = new THREE.MeshLambertMaterial({ transparent: true, opacity: 0.4 });
-
     this.fragments.highlighter.add('red', [redMaterial]);
-    this.fragments.highlighter.add('translucent');
+    //this.fragments.highlighter.add('translucent');
 
     //Ventana de control GUI
     this.gui = new dat.GUI({ title: 'Parámetros' });
     this.gui.domElement.classList.add('my-gui-container');
 
     var text = {
-      message: 'dat.gui',
-      speed: 0.8,
-      displayOutline: false,
-      otlo: true,
+      Visible: true,
+      Translucido: false,
     };
 
     //Ventana GUI
-    var menu = this.gui.addFolder('folder');
-    menu.add(text, 'message');
-    menu.add(text, 'speed', -5, 5);
-    menu.add(text, 'displayOutline');
-    menu.add(text, 'otlo');
+    var menu = this.gui.addFolder('Arquitectura');
+    menu.add(text, 'Visible');
+    menu.add(text, 'Translucido');
 
     var customContainer = document.getElementById('my-gui-container');
     if (customContainer) {
@@ -126,10 +123,33 @@ export class BuildingScene {
       customContainer.classList.add('my-gui-container');
     }
 
+    this.gui.onChange((event: any) => {
+      //console.log("event.object: " + event.object);     // object that was modified
+      //console.log("event.property: " + event.property);    // string, name of property
+      //console.log("event.value: " + event.value);     // new value of controller
+      //console.log("event.controller: " + event.controller); // controller that was modified
+      //this.translucent = event.value;
+
+      this.updateStyle(event.property, event.value);
+    });
 
 
+  }
 
+  updateStyle(property: String, value: boolean) {
 
+    //const flowsegment = this.fragments.groups.groupSystems.nombreSistema[nombreSistema];
+    if (property == "Visible") {
+      this.fragments.groups.setVisibility("disciplina", "AS", value);
+    }
+
+    if (property == "Translucido") {
+      if (value) {
+        this.fragments.materials.apply(this.translucentMat);
+      } else {
+        this.fragments.materials.reset();
+      }
+    }
   }
 
   dispose() {
@@ -183,12 +203,12 @@ export class BuildingScene {
     const floorNav = this.getFloorNav();
     if (!this.floorplans.length) return;
     if (active && floorplan) {
-      this.toggleGrid(false);
+      //this.toggleGrid(false);
       this.toggleEdges(true);
       floorNav.goTo(floorplan.id);
       this.fragments.materials.apply(this.whiteMaterial);
     } else {
-      this.toggleGrid(true);
+      //this.toggleGrid(true);
       this.toggleEdges(false);
       this.fragments.materials.reset();
       floorNav.exitPlanView();
@@ -251,11 +271,11 @@ export class BuildingScene {
     }
   };
 
-  private toggleGrid(visible: boolean) {
+  /*private toggleGrid(visible: boolean) {
     const grid = this.components.tools.get("SimpleGrid") as OBC.SimpleGrid;
     const mesh = grid.get();
     mesh.visible = visible;
-  }
+  }*/
 
   private getClipper() {
     return this.components.tools.get("EdgesClipper") as OBC.EdgesClipper;
@@ -388,7 +408,7 @@ export class BuildingScene {
       //Destacamos los elementos selecciondos
       this.fragments.highlighter.highlightByID("red", flowsegment, true);
 
-      console.log("PROP IDS: " + JSON.stringify(this.propID[42]));
+      //console.log("PROP IDS: " + JSON.stringify(this.propID[42]));
 
       let IDS = [];
 
@@ -400,16 +420,16 @@ export class BuildingScene {
       //Aplanamas la lista para que quede de una sola dimensión
       IDS = IDS.flat();
 
-      console.log("IDS: " + JSON.stringify(IDS));
-      console.log("flowsegment: " + JSON.stringify(flowsegment));
-      console.log("codi: " + JSON.stringify(codi));
+      //console.log("IDS: " + JSON.stringify(IDS));
+      //console.log("flowsegment: " + JSON.stringify(flowsegment));
+      //console.log("codi: " + JSON.stringify(codi));
 
       const filtroHabitaciones = this.searchFirstKeysAndValuesInJson(codi, IDS);
 
 
       const habitaciones = Array.from(new Set(filtroHabitaciones.map(obj => obj.key)));
 
-      console.log("habitaciones: " + JSON.stringify(habitaciones));
+      //console.log("habitaciones: " + JSON.stringify(habitaciones));
 
 
       const formatted: System[] = [];
@@ -516,11 +536,12 @@ export class BuildingScene {
   private async loadAllModels(building: Building) {
 
     const buildingsURLs = await this.database.getModels(building);
+    let modelType: String;
 
     for (const model of buildingsURLs) {
       const { url, id } = model;
 
-      console.log("URL: " + id);
+      modelType = id;
 
       if (this.loadedModels.has(id)) {
         continue;
@@ -611,7 +632,7 @@ export class BuildingScene {
 
         // Group items by category and by floor
 
-        const groups = { category: {}, floor: {}, nombreSistema: {}, codigoHabitacion: {} } as any;
+        const groups = { category: {}, floor: {}, nombreSistema: {}, codigoHabitacion: {}, disciplina: {} } as any;
 
         //const sistemas = { sistema: {} } as any;
         const floorNames = {} as any;
@@ -626,6 +647,34 @@ export class BuildingScene {
           // Get the category of the items
 
           const numId = parseInt(id);
+          let modelCode = "";
+
+          if (modelType.includes("-AS")) {
+            modelCode = "AS";
+          } else {
+            modelCode = "ME";
+          }
+
+          //console.log("MODEL CODE: " + modelCode);
+
+          if (!groups.disciplina[modelCode]) {
+            groups.disciplina[modelCode] = [];
+          }
+          groups.disciplina[modelCode].push(id);
+
+
+          /*const disciplinaExpressID = properties[id];
+          const disciplina = properties[disciplinaExpressID];
+          //console.log("DISCIPLINA: "+ JSON.stringify( disciplina));
+          if (!groups.disciplina["AS"]) {
+            groups.disciplina["AS"] = [];
+
+          groups.disciplina["AS"].push(id);
+
+          }*/
+
+
+
 
           const categoryExpressID = modelTypes[id];
           const category = allTypes[categoryExpressID];
@@ -635,9 +684,9 @@ export class BuildingScene {
 
           groups.category[category].push(id);
 
-          /*console.log("categoryExpressID: " + JSON.stringify(categoryExpressID));
-          console.log("category: " + JSON.stringify(category));
-          console.log("id:" + JSON.stringify(id));*/
+          /*//console.log("categoryExpressID: " + JSON.stringify(categoryExpressID));
+          //console.log("category: " + JSON.stringify(category));
+          //console.log("id:" + JSON.stringify(id));*/
 
           // Get the floors of the items
 
@@ -649,12 +698,7 @@ export class BuildingScene {
           groups["floor"][floor].push(id);
 
 
-          /*if (!sistemas["sistema"][sistema]) {
-            sistemas["sistema"][sistema] = [];
-          }*/
-          /*console.log("sistema: " + numId + 1);
-          console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
-          console.log("sistema: " + JSON.stringify(sistema));*/
+
 
           let flag = true;
           let currentId = numId;
@@ -689,7 +733,7 @@ export class BuildingScene {
                   codigoHabitacion = properties[currentId].NominalValue.value;
                   //console.log("ID: " + numId);
                   //console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
-                  console.log("codigoHabitacion: " + JSON.stringify(codigoHabitacion));
+                  //console.log("codigoHabitacion: " + JSON.stringify(codigoHabitacion));
                   if (!groups.codigoHabitacion[codigoHabitacion]) {
                     groups.codigoHabitacion[codigoHabitacion] = [];
                   }
