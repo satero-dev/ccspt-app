@@ -333,24 +333,14 @@ export class BuildingScene {
       //El ID del elemento seleccionado marca el punto de partida para la lectura de parámetros
       let currentId = parseInt(result.id);
 
-
-
       //Itera mientras no encontremos el parámetro que nos interesa
       while (flag) {
-
-        //console.log("currentId!!: " + currentId);
 
         //Si el elemento existe
         if (allProps[currentId]) {
 
-          //console.log("allProps[currentId]: " + JSON.stringify(allProps[currentId]));
-          //console.log("allProps[currentId]: " + JSON.stringify(allProps[currentId].Name.value));
-          //console.log("properties[currentId]: " + JSON.stringify(properties[currentId].Name.value));
-
           //Buscamos el parámetro "Nombre de sistema". Ponemos un try por si el parámetro no existe
           try {
-
-            //console.log("CSPT_FM_HabitacioCodi: " + JSON.stringify(allProps[currentId].Name.value));
 
             if (allProps[currentId].Name.value === "Nombre de sistema") {
 
@@ -362,13 +352,9 @@ export class BuildingScene {
 
               //Si lo encontramos, guardamos su valor en la variable nombreSistema
               habitacioCodi = allProps[currentId].NominalValue.value;
-              //console.log("habitacioCodi: " + habitacioCodi);
             }
           } catch { }
 
-          //formatted.push({ tmp, nombreSistema });
-          //formatted.push({ nombreSistema });
-          //Buscamos el parámetro en el siguiente ID
           currentId = currentId + 1;
         } else {
           //No existe el ID
@@ -376,11 +362,6 @@ export class BuildingScene {
         }
 
       }
-
-      /*return this.events.trigger({
-        type: "UPDATE_SYSTEMS",
-        payload: "DATOS",
-      });*/
 
 
       //Seleccionamos todos los elementos cuyo nombre de sistema coincida con el seleccionado
@@ -644,7 +625,6 @@ export class BuildingScene {
 
 
         for (const id of data.ids) {
-          // Get the category of the items
 
           const numId = parseInt(id);
           let modelCode = "";
@@ -654,8 +634,6 @@ export class BuildingScene {
           } else {
             modelCode = "ME";
           }
-
-          //console.log("MODEL CODE: " + modelCode);
 
           if (!groups.disciplina[modelCode]) {
             groups.disciplina[modelCode] = [];
