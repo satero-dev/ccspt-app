@@ -31,7 +31,7 @@ export const BuildingInfoMenu: FC<{
           required
           fullWidth
           id="building-id"
-          label="Building ID"
+          label="ID de Edificio"
           name="building-id"
           autoComplete="building-id"
           value={building.uid}
@@ -42,7 +42,7 @@ export const BuildingInfoMenu: FC<{
         <TextField
           fullWidth
           id="building-name"
-          label="Building Name"
+          label="Nombre de Edificio"
           name="building-name"
           autoComplete="building-name"
           defaultValue={building.name}
@@ -53,7 +53,7 @@ export const BuildingInfoMenu: FC<{
           fullWidth
           required
           id="building-lng"
-          label="Longitude"
+          label="Longitud"
           name="building-lng"
           autoComplete="building-lng"
           defaultValue={building.lng}
@@ -64,7 +64,7 @@ export const BuildingInfoMenu: FC<{
           fullWidth
           required
           id="building-lat"
-          label="Latitude"
+          label="Latitud"
           name="building-lat"
           autoComplete="building-lat"
           defaultValue={building.lat}
@@ -72,7 +72,7 @@ export const BuildingInfoMenu: FC<{
       </div>
       <div className="list-item">
         <Button type="submit" className="submit-button">
-          Update building
+          Actualizar edificio
         </Button>
       </div>
     </Box>
