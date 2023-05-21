@@ -9,7 +9,7 @@ import { Events } from "../../middleware/event-handler";
 
 export class MapScene {
   private components = new OBC.Components();
-  private readonly style = "mapbox://styles/mapbox/light-v11";
+  private readonly style = "mapbox://styles/mapbox/streets-v12";
   private map: MAPBOX.Map;
   private center: LngLat = { lat: 0, lng: 0 }; //Centro de la escena
   private clickedCoordinates: LngLat = { lat: 0, lng: 0 };
@@ -224,7 +224,7 @@ export class MapScene {
     for (const building of buildings) {
 
       const { name, lng, lat } = building;
-      const htmlElement = this.createHTMLElement("🏥", building);
+      const htmlElement = this.createHTMLElement(building);
       const label = new CSS2DObject(htmlElement);
 
       //console.log("addToScene lng: " + lng);
@@ -255,7 +255,7 @@ export class MapScene {
     }
   }
 
-  private createHTMLElement(content: string, building: Building) {
+  private createHTMLElement(building: Building) {
 
     const div = document.createElement("div");
 
@@ -263,7 +263,7 @@ export class MapScene {
     //name.textContent = building.name;
 
     const icon = document.createElement("div");
-    icon.textContent = content + " " + building.name;
+    icon.textContent = building.name;
 
     //div.appendChild(name);
     div.appendChild(icon);
@@ -273,7 +273,7 @@ export class MapScene {
     icon.onclick = () => {
       this.events.trigger({ type: "OPEN_BUILDING", payload: building });
     }
-    icon.classList.add("thumbnail");
+    icon.classList.add("buildingLabel");
     return div;
   }
 

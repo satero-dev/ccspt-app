@@ -23,31 +23,19 @@
 }
 
 .buildingLabel {
-  background: rgba(255, 255, 255, 1);
-  border-radius: 3px;
-  border: 1px solid #333333;
-  padding: 5px;
+  background: rgba(0, 128, 255, 1);
+  font-size: large;
+  color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #fff;
+  padding: 8px;
   margin-bottom: 5px;
 }
 
 .buildingLabel:hover {
   background-color: rgb(255, 220, 125);
   border: 5px solid #ff9800;
-  cursor: pointer;
-}
-
-.thumbnail {
-  background: rgba(230, 230, 230, 0.7);
-  padding: 5px;
-
-  border: 2px solid #077fff;
-  pointer-events: all;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.thumbnail:hover {
-  background-color: rgb(255, 220, 125);
-  border: 5px solid #ff9800;
+  color: #000000;
   cursor: pointer;
 }
 
