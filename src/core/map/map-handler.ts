@@ -9,26 +9,14 @@ export const mapHandler = {
 
   async start(container: HTMLDivElement, user: User, events: Events) {
 
-    //console.log("USER: " + JSON.stringify(user));
-
     if (!this.viewer) {
       this.viewer = new MapScene(container, events);
       await this.viewer.getAllBuildings();
+      //await this.viewer.getAllAssets();
     }
+
   },
 
-  //Cargamos los datos
-  /*async loadData(data: string) {
-    if (this.viewer) {
-      //console.log("MAP-HANDLER LOAD DATA: " + data);
-      await this.viewer.updateData(data);
-
-      //data = "cordiales";
-
-      //await //console.log("MAPA LOAD DATA: " + data);
-      //await this.viewer.getAllAssets(user);
-    }
-  },*/
 
   /*scanAsset(user: User) {
     if (this.viewer) {

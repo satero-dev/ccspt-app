@@ -54,8 +54,6 @@ export const MapViewer: FC = () => {
     const container = containerRef.current;
     if (container && user) {
 
-      console.log("ROL MAP: " + role)
-
       const thumbnail = thumbnailRef.current;
       dispatch({ type: "START_MAP", payload: { container, user, thumbnail } });
 
@@ -64,7 +62,7 @@ export const MapViewer: FC = () => {
 
       const fetchData = async () => {
 
-        const allDatabases = await Promise.all([database.getAssets(user), database.getBuildings()])
+        const allDatabases = await Promise.all([database.getAssets(), database.getBuildings()])
 
         const assetsDatabase = await allDatabases[0];
         const buildingsDatabase = await allDatabases[1];

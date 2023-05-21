@@ -55,7 +55,8 @@ export class MapDataBase {
     return result.id;
   }
 
-  async getAssets(user: User) {
+  async getAssets() {
+
     const dbInstance = getFirestore(getApp());
     const q = query(
       collection(dbInstance, this.assets)

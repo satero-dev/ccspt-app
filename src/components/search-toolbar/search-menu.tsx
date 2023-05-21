@@ -1,7 +1,7 @@
-import { Card, TextField, Autocomplete, Box, IconButton, createFilterOptions } from "@mui/material"
+import { TextField, Autocomplete, Box, IconButton, createFilterOptions } from "@mui/material"
 import { useAppContext } from "../../middleware/context-provider";
 import "./search-menu.css"
-import { Asset, LngLat } from "../../types";
+import { LngLat } from "../../types";
 
 
 export const SearchMenu = ({ datos }: any) => {
@@ -13,15 +13,9 @@ export const SearchMenu = ({ datos }: any) => {
         dispatch({ type: "GOTO_ASSET", payload: coordenadas });
     }
 
-    /*const filterOptions = createFilterOptions({
-        matchFrom: 'any',
-        stringify: (option: any) => option.id,
-    });*/
-
     const filterOptions = (datos: any, state: { inputValue: string }) => {
         const filteredOptions = datos.filter((data: any) => {
 
-            ////console.log("datos: " + JSON.stringify(data.name));
             const optionLabel = data.name.toLowerCase() + data.uid.toLowerCase();
             const removeAccentsOL = optionLabel.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             const inputText = state.inputValue.toLowerCase();

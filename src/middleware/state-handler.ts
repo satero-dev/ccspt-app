@@ -7,7 +7,6 @@ export const reducer = (state: State, action: Action) => {
     return { ...state, user: action.payload };
   }
   if (action.type === "SET_ROLE") {
-    console.log("SET_ROLE: " + action.payload);
     return { ...state, role: action.payload };
   }
   if (action.type === "OPEN_BUILDING" || action.type === "UPDATE_BUILDING") {

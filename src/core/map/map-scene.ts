@@ -48,9 +48,11 @@ export class MapScene {
     this.addBuildingToScene(buildings);
   }
 
-  async getAllAssets(user: User) {
+  async getAllAssets() {
 
-    const assets = await this.database.getAssets(user);
+    console.log("ADDUSERLOCATION");
+
+    const assets = await this.database.getAssets();
 
     for (const asset of assets) {
       const { name } = asset;
@@ -60,12 +62,6 @@ export class MapScene {
     if (!this.components) return;
     this.addAssetToScene(assets);
   }
-
-  async updateData(data: string) {
-    //console.log("MAP-SCENE: " + data);
-    return "cordiales";
-  }
-
 
   private initializeComponent(config: GisParameters) {
     this.components.scene = new OBC.SimpleScene(this.components);
@@ -127,7 +123,7 @@ export class MapScene {
 
   async addAsset(user: User) {
 
-    ////console.log("INTENTOLO")
+    //console.log("INTENTOLO")
 
     let longitud = 0;
     let latitud = 0;
@@ -144,6 +140,7 @@ export class MapScene {
 
   async datos(longitud: number, latitud: number) {
 
+
     const { lat, lng } = { lat: latitud, lng: longitud };
     const tipo = "Activo";
     const asset = { uid: "", name: "Activo nuevo", lat, lng, tipo };
@@ -156,7 +153,7 @@ export class MapScene {
 
   private addAssetToScene(assets: Asset[]) {
     for (const asset of assets) {
-      ////console.log("ADDUSERLOCATION");
+
 
       const { name, lng, lat } = asset;
       const htmlElement = this.createHTMLElementAsset("🚩", asset);
@@ -188,6 +185,7 @@ export class MapScene {
       this.labels[name] = label;
 
 
+
     }
 
   }
@@ -198,6 +196,8 @@ export class MapScene {
       center: [asset.lng, asset.lat],
       essential: true // this animation is considered essential with respect to prefers-reduced-motion
     });
+
+    this.addAssetToScene([asset]);
   }
 
   //Añadimos edificio, esta opción solo ha de ser visible para el administrador en Escritorio
@@ -257,14 +257,23 @@ export class MapScene {
 
   private createHTMLElement(content: string, building: Building) {
 
-    ////console.log("PONIENDO LA PICA");
     const div = document.createElement("div");
-    //div.textContent = id;
-    div.textContent = content;
-    div.onclick = () => {
+
+    //const name = document.createElement("div");
+    //name.textContent = building.name;
+
+    const icon = document.createElement("div");
+    icon.textContent = content + " " + building.name;
+
+    //div.appendChild(name);
+    div.appendChild(icon);
+
+    //name.classList.add("buildingLabel");
+
+    icon.onclick = () => {
       this.events.trigger({ type: "OPEN_BUILDING", payload: building });
     }
-    div.classList.add("thumbnail");
+    icon.classList.add("thumbnail");
     return div;
   }
 
@@ -277,7 +286,7 @@ export class MapScene {
     /*div.onclick = () => {
         this.events.trigger({ type: "OPEN_BUILDING", payload: asset });
     }*/
-    div.classList.add("thumbnail");
+    div.classList.add("asset");
     return div;
   }
 
