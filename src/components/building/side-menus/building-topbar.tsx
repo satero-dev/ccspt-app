@@ -2,11 +2,12 @@ import { FC } from "react";
 import * as React from "react";
 
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
+import { Button, IconButton } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import { Typography } from "@mui/material";
 import { getAppBar } from "./mui-utils";
+import { makeStyles } from "@mui/material/styles";
 
 export const BuildingTopbar: FC<{
   open: boolean;
@@ -19,7 +20,8 @@ export const BuildingTopbar: FC<{
   const AppBar = getAppBar(width);
 
   return (
-    <AppBar position="fixed" open={open}>
+
+    <AppBar position="fixed" open={open} color="transparent" elevation={0}>
       <Toolbar>
         <IconButton
           color="inherit"
@@ -31,7 +33,7 @@ export const BuildingTopbar: FC<{
             ...(open && { display: "none" }),
           }}
         >
-          <MenuIcon />
+          <MenuIcon sx={{ color: "#FFFFFF" }} />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
           {buildingName}

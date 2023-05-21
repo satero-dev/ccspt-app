@@ -66,14 +66,14 @@ export class BuildingDatabase {
     const fileRef = ref(instance, id);
     const url = await getDownloadURL(fileRef);
     await this.cacheModel(id, url);
-    console.log("Got model from firebase!");
+    //console.log("Got model from firebase!");
     return url;
   }
 
   private async getModelFromLocalCache(id: string) {
     const found = await this.db.models.where("id").equals(id).toArray();
     const file = found[0].file;
-    console.log("Got model from local cache!");
+    //console.log("Got model from local cache!");
     return URL.createObjectURL(file);
   }
 

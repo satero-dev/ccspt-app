@@ -3,7 +3,12 @@ import { State } from "./state";
 
 export const reducer = (state: State, action: Action) => {
   if (action.type === "UPDATE_USER") {
+    //console.log("ACUTALIZA: " + JSON.stringify(action.payload));
     return { ...state, user: action.payload };
+  }
+  if (action.type === "SET_ROLE") {
+    console.log("SET_ROLE: " + action.payload);
+    return { ...state, role: action.payload };
   }
   if (action.type === "OPEN_BUILDING" || action.type === "UPDATE_BUILDING") {
     return { ...state, building: action.payload };

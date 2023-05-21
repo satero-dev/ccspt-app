@@ -54,7 +54,7 @@ export class MapScene {
 
     for (const asset of assets) {
       const { name } = asset;
-      //console.log("assets: " + id);
+      ////console.log("assets: " + id);
     }
 
     if (!this.components) return;
@@ -62,7 +62,7 @@ export class MapScene {
   }
 
   async updateData(data: string) {
-    console.log("MAP-SCENE: " + data);
+    //console.log("MAP-SCENE: " + data);
     return "cordiales";
   }
 
@@ -118,7 +118,7 @@ export class MapScene {
 
 
 
-    //console.log(map.getCenter().lat);
+    ////console.log(map.getCenter().lat);
     //this.setGeoLocation(map.getCenter().lng, map.getCenter().lat);
     return map;
   }
@@ -127,7 +127,7 @@ export class MapScene {
 
   async addAsset(user: User) {
 
-    //console.log("INTENTOLO")
+    ////console.log("INTENTOLO")
 
     let longitud = 0;
     let latitud = 0;
@@ -156,14 +156,14 @@ export class MapScene {
 
   private addAssetToScene(assets: Asset[]) {
     for (const asset of assets) {
-      //console.log("ADDUSERLOCATION");
+      ////console.log("ADDUSERLOCATION");
 
       const { name, lng, lat } = asset;
       const htmlElement = this.createHTMLElementAsset("🚩", asset);
       const label = new CSS2DObject(htmlElement);
 
-      //console.log("addUserLocation lng: " + lng);
-      //console.log("addUserLocation lat: " + lat);
+      ////console.log("addUserLocation lng: " + lng);
+      ////console.log("addUserLocation lat: " + lat);
 
       const center = MAPBOX.MercatorCoordinate.fromLngLat(
         { ...this.center },
@@ -177,12 +177,12 @@ export class MapScene {
       center.x /= units;
       center.y /= units;
 
-      //console.log("ASSET center.x: " + center.x + " center.y: " + center.y);
-      //console.log("ASSET model.x: " + model.x + " model.y: " + model.y);
+      ////console.log("ASSET center.x: " + center.x + " center.y: " + center.y);
+      ////console.log("ASSET model.x: " + model.x + " model.y: " + model.y);
 
       label.position.set(model.x - center.x, 0, model.y - center.y);
 
-      //console.log("ASSET LABEL POSITION: " + label.position.x);
+      ////console.log("ASSET LABEL POSITION: " + label.position.x);
 
       this.components.scene.get().add(label);
       this.labels[name] = label;
@@ -203,7 +203,7 @@ export class MapScene {
   //Añadimos edificio, esta opción solo ha de ser visible para el administrador en Escritorio
   async addBuilding(user: User) {
 
-    console.log("ADD_BUILDING map-scene");
+    //console.log("ADD_BUILDING map-scene");
 
     const { lat, lng } = this.clickedCoordinates;
     const tipo = "Edificio";
@@ -219,7 +219,7 @@ export class MapScene {
 
   private addBuildingToScene(buildings: Building[]) {
 
-    console.log("ADD_BUILDING map-scene addBuildingToScene");
+    //console.log("ADD_BUILDING map-scene addBuildingToScene");
 
     for (const building of buildings) {
 
@@ -227,8 +227,8 @@ export class MapScene {
       const htmlElement = this.createHTMLElement("🏥", building);
       const label = new CSS2DObject(htmlElement);
 
-      console.log("addToScene lng: " + lng);
-      console.log("addToScene lat: " + lat);
+      //console.log("addToScene lng: " + lng);
+      //console.log("addToScene lat: " + lat);
 
       const center = MAPBOX.MercatorCoordinate.fromLngLat(
         { ...this.center },
@@ -242,12 +242,12 @@ export class MapScene {
       center.x /= units;
       center.y /= units;
 
-      console.log("BUILDING center.x: " + center.x + " center.y: " + center.y);
-      console.log("BUILDING model.x: " + model.x + " model.y: " + model.y);
+      //console.log("BUILDING center.x: " + center.x + " center.y: " + center.y);
+      //console.log("BUILDING model.x: " + model.x + " model.y: " + model.y);
 
       label.position.set(model.x - center.x, 0, model.y - center.y);
 
-      //console.log("BUILDING LABEL POSITION: " + label.position.x);
+      ////console.log("BUILDING LABEL POSITION: " + label.position.x);
 
       this.components.scene.get().add(label);
       this.labels[name] = label;
@@ -257,7 +257,7 @@ export class MapScene {
 
   private createHTMLElement(content: string, building: Building) {
 
-    //console.log("PONIENDO LA PICA");
+    ////console.log("PONIENDO LA PICA");
     const div = document.createElement("div");
     //div.textContent = id;
     div.textContent = content;
@@ -270,7 +270,7 @@ export class MapScene {
 
   private createHTMLElementAsset(content: string, asset: Asset) {
 
-    //console.log("PONIENDO LA PICA");
+    ////console.log("PONIENDO LA PICA");
     const div = document.createElement("div");
     //div.textContent = id;
     div.textContent = content;

@@ -24,14 +24,19 @@ export const BuildingDrawer: FC<{
 
   return (
     <Drawer variant="permanent" open={open}>
-      <DrawerHeader>
-        <img alt="Logo Tauli" src="../../../../pt-logo-landing-150.png" width="150" />
-        <IconButton onClick={onClose}>
+      <DrawerHeader sx={{ background: "#0080FF" }}>
+
+        {open && (
+          <img alt="Logo Tauli" src="../../../../pt-logo-landing-150.png" width="150" />
+        )}
+        <IconButton onClick={onClose} sx={{
+          ...(!open && { display: "none" }),
+        }}>
 
           {theme.direction === "rtl" ? (
-            <ChevronRightIcon />
+            <ChevronRightIcon sx={{ color: "#FFFFFF" }} />
           ) : (
-            <ChevronLeftIcon />
+            <ChevronLeftIcon sx={{ color: "#FFFFFF" }} />
           )}
         </IconButton>
       </DrawerHeader>

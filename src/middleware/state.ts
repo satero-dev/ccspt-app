@@ -4,6 +4,7 @@ import { } from "../types";
 
 export interface State {
   user: User | null;
+  role: String;
   building: Building | null;
   floorplans: Floorplan[];
   properties: Property[];
@@ -12,6 +13,7 @@ export interface State {
 
 export const initialState: State = {
   user: null,
+  role: "",
   building: null,
   floorplans: [],
   properties: [],

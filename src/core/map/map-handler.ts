@@ -3,10 +3,14 @@ import { Events } from "../../middleware/event-handler";
 import { Asset } from "../../types";
 import { MapScene } from "./map-scene";
 
+
 export const mapHandler = {
   viewer: null as MapScene | null,
 
   async start(container: HTMLDivElement, user: User, events: Events) {
+
+    //console.log("USER: " + JSON.stringify(user));
+
     if (!this.viewer) {
       this.viewer = new MapScene(container, events);
       await this.viewer.getAllBuildings();
@@ -16,26 +20,26 @@ export const mapHandler = {
   //Cargamos los datos
   /*async loadData(data: string) {
     if (this.viewer) {
-      console.log("MAP-HANDLER LOAD DATA: " + data);
+      //console.log("MAP-HANDLER LOAD DATA: " + data);
       await this.viewer.updateData(data);
 
       //data = "cordiales";
 
-      //await console.log("MAPA LOAD DATA: " + data);
+      //await //console.log("MAPA LOAD DATA: " + data);
       //await this.viewer.getAllAssets(user);
     }
   },*/
 
   /*scanAsset(user: User) {
     if (this.viewer) {
-      console.log("map-handler scan");
+      //console.log("map-handler scan");
       this.viewer.addAsset(user);
     }
   },*/
 
   gotoAsset(asset: Asset) {
     if (this.viewer) {
-      //console.log("map-handler scan");
+      ////console.log("map-handler scan");
       this.viewer.gotoAsset(asset);
     }
   },

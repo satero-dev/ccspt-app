@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useReducer,
-  FC,
-  PropsWithChildren,
-  useContext,
-} from "react";
+import { createContext, useReducer, FC, PropsWithChildren, useContext, } from "react";
 import { Action, ActionList } from "./actions";
 import { reducer } from "./state-handler";
 import { initialState, State } from "./state";
@@ -14,7 +8,7 @@ import { Events } from "./event-handler";
 
 const appContext = createContext<[State, React.Dispatch<Action>]>([
   initialState,
-  () => {},
+  () => { },
 ]);
 
 export const ContextProvider: FC<PropsWithChildren> = ({ children }) => {

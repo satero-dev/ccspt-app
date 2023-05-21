@@ -6,7 +6,7 @@ import "./front-menu-content.css";
 export const SystemsMenu: FC = () => {
   const [state] = useAppContext();
 
-  //console.log("state.systems: " + state.systems.length);
+  ////console.log("state.systems: " + state.systems.length);
 
   return (
     <div>

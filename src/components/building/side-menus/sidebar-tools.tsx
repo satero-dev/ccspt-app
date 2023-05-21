@@ -13,6 +13,7 @@ export function getSidebarTools(): Tool[] {
     {
       name: "Info",
       active: false,
+      role: "guest",
       icon: <ListAltIcon />,
       action: ({ onToggleMenu }) => {
         onToggleMenu(true, "BuildingInfo");
@@ -21,6 +22,7 @@ export function getSidebarTools(): Tool[] {
     {
       name: "Modelos",
       active: false,
+      role: "admin",
       icon: <ModelsIcon />,
       action: ({ onToggleMenu }) => {
         onToggleMenu(true, "ModelList");
@@ -29,6 +31,7 @@ export function getSidebarTools(): Tool[] {
     {
       name: "Planos de planta",
       active: false,
+      role: "guest",
       icon: <FloorplanIcon />,
       action: ({ onToggleMenu }) => {
         onToggleMenu(true, "Floorplans");
@@ -37,6 +40,7 @@ export function getSidebarTools(): Tool[] {
     {
       name: "Propiedades",
       active: false,
+      role: "guest",
       icon: <PropertiesIcon />,
       action: ({ onToggleMenu }) => {
         onToggleMenu(true, "Properties");
@@ -45,6 +49,7 @@ export function getSidebarTools(): Tool[] {
     {
       name: "Sistemas",
       active: false,
+      role: "guest",
       icon: <LanIcon />,
       action: ({ onToggleMenu }) => {
         onToggleMenu(true, "Systems");
@@ -53,6 +58,7 @@ export function getSidebarTools(): Tool[] {
     {
       name: "Mapa",
       active: false,
+      role: "guest",
       icon: <MapIcon />,
       action: ({ dispatch }) => {
         dispatch({ type: "CLOSE_BUILDING" });
@@ -61,6 +67,7 @@ export function getSidebarTools(): Tool[] {
     {
       name: "Eliminar edificio",
       active: false,
+      role: "admin",
       icon: <DeleteIcon />,
       action: ({ dispatch, state }) => {
         dispatch({ type: "DELETE_BUILDING", payload: state.building });
@@ -69,6 +76,7 @@ export function getSidebarTools(): Tool[] {
     {
       name: "Cerrar sesión",
       active: false,
+      role: "guest",
       icon: <LogoutIcon />,
       action: ({ dispatch }) => {
         dispatch({ type: "LOGOUT" });

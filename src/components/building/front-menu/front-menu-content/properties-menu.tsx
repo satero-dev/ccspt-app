@@ -6,7 +6,7 @@ import "./front-menu-content.css";
 export const PropertiesMenu: FC = () => {
   const [state] = useAppContext();
 
-  //console.log("state.properties: " + state.properties.length);
+  ////console.log("state.properties: " + state.properties.length);
 
   return (
     <div>

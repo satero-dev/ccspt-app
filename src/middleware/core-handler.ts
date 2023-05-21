@@ -6,7 +6,7 @@ import { buildingHandler } from "../core/building/building-handler";
 
 export const executeCore = async (action: Action, events: Events) => {
   if (action.type === "LOGIN") {
-    return databaseHandler.login();
+    return databaseHandler.login(action);
   }
   if (action.type === "LOGOUT") {
     buildingHandler.remove();
@@ -65,7 +65,7 @@ export const executeCore = async (action: Action, events: Events) => {
     let { data } = action.payload;
     return mapHandler.loadData(data);
 
-    //console.log("LOAD DATA SEARCH: " + action.payload);        
+    ////console.log("LOAD DATA SEARCH: " + action.payload);        
   }*/
 
   //Volamos hasta el asset

@@ -12,6 +12,7 @@ export interface Model {
   name: string;
   id: string;
 }
+
 export interface Building {
   /*autoID: string;*/
   name: string;
@@ -32,6 +33,7 @@ export interface Tool {
   name: string;
   active: boolean;
   icon: any;
+  role?: string
   action: (...args: any) => void;
 }
 

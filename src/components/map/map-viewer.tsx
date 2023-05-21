@@ -18,7 +18,7 @@ export const MapViewer: FC = () => {
   const containerRef = useRef(null);
   const thumbnailRef = useRef(null);
   const [isCreating, setIsCreating] = useState(false);
-  const { user, building } = state;
+  const { user, building, role } = state;
 
   //State que controla los datos recibidos
   const [datos, setDatos] = useState<any[]>([]);
@@ -53,6 +53,9 @@ export const MapViewer: FC = () => {
   useEffect(() => {
     const container = containerRef.current;
     if (container && user) {
+
+      console.log("ROL MAP: " + role)
+
       const thumbnail = thumbnailRef.current;
       dispatch({ type: "START_MAP", payload: { container, user, thumbnail } });
 
@@ -66,7 +69,7 @@ export const MapViewer: FC = () => {
         const assetsDatabase = await allDatabases[0];
         const buildingsDatabase = await allDatabases[1];
 
-        // console.log("DATABASE ASSETS: " + assetsDatabase[0].autoID);
+        // //console.log("DATABASE ASSETS: " + assetsDatabase[0].autoID);
 
         //Unimos arrays de diferentes objetos
         Array.prototype.push.apply(assetsDatabase, buildingsDatabase);
@@ -81,6 +84,8 @@ export const MapViewer: FC = () => {
   if (!user) {
     return <Navigate to="/login" />;
   }
+
+  //console.log("USER: " + user);
 
   if (building) {
     const url = `/building/?id=${building.uid}`;
@@ -102,9 +107,11 @@ export const MapViewer: FC = () => {
       )}
 
       <Grid className="bottom-menu" gap={2}>
-        <Card>
-          <IconButton onClick={onToggleCreate} key="createBuilding"><DomainAddIcon /></IconButton>
-        </Card>
+        {role == "admin" && (
+          <Card>
+            <IconButton onClick={onToggleCreate} key="createBuilding"><DomainAddIcon /></IconButton>
+          </Card>
+        )}
         <Card>
           <IconButton onClick={toggleFullscreen}>
             {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
@@ -115,7 +122,9 @@ export const MapViewer: FC = () => {
         </Card>
       </Grid>
 
+
       <SearchMenu datos={datos} />
+
 
     </>
   );

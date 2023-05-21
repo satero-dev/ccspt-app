@@ -1,10 +1,10 @@
-.lil-gui { 
-	width: 400px;
+.lil-gui {
+  width: 400px;
 }
 
 .my-gui-container {
-    position: absolute;
-    margin-top: 80px;
-    right: 0px;
-    z-index: 100000000;
-  }
+  position: absolute;
+  margin-top: 10px;
+  right: 0px;
+  z-index: 10000;
+}

@@ -50,8 +50,10 @@ export class BuildingScene {
     scene.background = new THREE.Color();
 
     const camera = new OBC.OrthoPerspectiveCamera(this.components);
+    camera.controls.setPosition(-50, 20, 40);
     this.components.camera = camera;
     this.components.raycaster = new OBC.SimpleRaycaster(this.components);
+
     this.components.init();
 
     const dimensions = new OBC.SimpleDimensions(this.components);
@@ -124,10 +126,10 @@ export class BuildingScene {
     }
 
     this.gui.onChange((event: any) => {
-      //console.log("event.object: " + event.object);     // object that was modified
-      //console.log("event.property: " + event.property);    // string, name of property
-      //console.log("event.value: " + event.value);     // new value of controller
-      //console.log("event.controller: " + event.controller); // controller that was modified
+      ////console.log("event.object: " + event.object);     // object that was modified
+      ////console.log("event.property: " + event.property);    // string, name of property
+      ////console.log("event.value: " + event.value);     // new value of controller
+      ////console.log("event.controller: " + event.controller); // controller that was modified
       //this.translucent = event.value;
 
       this.updateStyle(event.property, event.value);
@@ -322,9 +324,9 @@ export class BuildingScene {
       //Recuperamos todas las propiedades de los elementos
       const allProps = this.properties[result.fragment.id];
 
-      //console.log("RESILTADO: " + result.id);
-      //console.log("RESULTADO: " + result.fragment.id);
-      //console.log("props: " + JSON.stringify(this.properties));
+      ////console.log("RESILTADO: " + result.id);
+      ////console.log("RESULTADO: " + result.fragment.id);
+      ////console.log("props: " + JSON.stringify(this.properties));
 
       //Flag para controlar cuántos IDs están relacionados con nuesta selección
       //El formato IFC guarda los parámetros en IDs consecutivos al elemento base
@@ -372,15 +374,15 @@ export class BuildingScene {
 
 
 
-      //console.log("flowsegment: " + JSON.stringify(flowsegment));
+      ////console.log("flowsegment: " + JSON.stringify(flowsegment));
 
       //const datos = this.fragments.groups.groupSystems;
 
       const nombreSistemaF = this.fragments.groups.groupSystems.nombreSistema;
       const codigoHabitacionF = this.fragments.groups.groupSystems.codigoHabitacion;
 
-      //console.log("nombreSistemaF: " + JSON.stringify(nombreSistemaF));
-      //console.log("codigoHabitacionF: " + JSON.stringify(codigoHabitacionF));
+      ////console.log("nombreSistemaF: " + JSON.stringify(nombreSistemaF));
+      ////console.log("codigoHabitacionF: " + JSON.stringify(codigoHabitacionF));
 
 
       this.events.trigger({ type: "UPDATE_SYSTEMS", payload: [] });
@@ -389,7 +391,7 @@ export class BuildingScene {
       //Destacamos los elementos selecciondos
       this.fragments.highlighter.highlightByID("red", flowsegment, true);
 
-      //console.log("PROP IDS: " + JSON.stringify(this.propID[42]));
+      ////console.log("PROP IDS: " + JSON.stringify(this.propID[42]));
 
       let IDS = [];
 
@@ -401,16 +403,16 @@ export class BuildingScene {
       //Aplanamas la lista para que quede de una sola dimensión
       IDS = IDS.flat();
 
-      //console.log("IDS: " + JSON.stringify(IDS));
-      //console.log("flowsegment: " + JSON.stringify(flowsegment));
-      //console.log("codi: " + JSON.stringify(codi));
+      ////console.log("IDS: " + JSON.stringify(IDS));
+      ////console.log("flowsegment: " + JSON.stringify(flowsegment));
+      ////console.log("codi: " + JSON.stringify(codi));
 
       const filtroHabitaciones = this.searchFirstKeysAndValuesInJson(codi, IDS);
 
 
       const habitaciones = Array.from(new Set(filtroHabitaciones.map(obj => obj.key)));
 
-      //console.log("habitaciones: " + JSON.stringify(habitaciones));
+      ////console.log("habitaciones: " + JSON.stringify(habitaciones));
 
 
       const formatted: System[] = [];
@@ -466,13 +468,13 @@ export class BuildingScene {
         const formatted: Property[] = [];
         for (const name in props) {
           let value = props[name];
-          //console.log("VALUE PROPERTY: " + JSON.stringify(value));
+          ////console.log("VALUE PROPERTY: " + JSON.stringify(value));
           if (!value) value = "Desconocido";
           if (value.value) value = value.value;
           if (typeof value === "number") value = value.toString();
           formatted.push({ name, value });
-          //console.log("Property NAME: " + name);
-          //console.log("Property VALUE: " + value);
+          ////console.log("Property NAME: " + name);
+          ////console.log("Property VALUE: " + value);
         }
         return this.events.trigger({
           type: "UPDATE_PROPERTIES",
@@ -579,7 +581,7 @@ export class BuildingScene {
 
       // Load all the fragments within this zip file
 
-      //console.log("PROPERTIES: " + JSON.stringify(properties));
+      ////console.log("PROPERTIES: " + JSON.stringify(properties));
 
       for (let i = 0; i < fileNames.length; i++) {
         const name = fileNames[i];
@@ -643,7 +645,7 @@ export class BuildingScene {
 
           /*const disciplinaExpressID = properties[id];
           const disciplina = properties[disciplinaExpressID];
-          //console.log("DISCIPLINA: "+ JSON.stringify( disciplina));
+          ////console.log("DISCIPLINA: "+ JSON.stringify( disciplina));
           if (!groups.disciplina["AS"]) {
             groups.disciplina["AS"] = [];
 
@@ -662,9 +664,9 @@ export class BuildingScene {
 
           groups.category[category].push(id);
 
-          /*//console.log("categoryExpressID: " + JSON.stringify(categoryExpressID));
-          //console.log("category: " + JSON.stringify(category));
-          //console.log("id:" + JSON.stringify(id));*/
+          /*////console.log("categoryExpressID: " + JSON.stringify(categoryExpressID));
+          ////console.log("category: " + JSON.stringify(category));
+          ////console.log("id:" + JSON.stringify(id));*/
 
           // Get the floors of the items
 
@@ -686,18 +688,18 @@ export class BuildingScene {
           while (flag) {
 
             if (properties[currentId]) {
-              //console.log("properties[currentId]: " + JSON.stringify(properties[currentId]));
+              ////console.log("properties[currentId]: " + JSON.stringify(properties[currentId]));
 
               try {
 
-                //console.log("properties[currentId]: " + JSON.stringify(properties[currentId].NominalValue.value));
+                ////console.log("properties[currentId]: " + JSON.stringify(properties[currentId].NominalValue.value));
 
                 if (properties[currentId].Name.value === "Nombre de sistema") {
-                  //console.log("properties[currentId]: " + JSON.stringify(properties[currentId].NominalValue.value));
+                  ////console.log("properties[currentId]: " + JSON.stringify(properties[currentId].NominalValue.value));
                   nombreSistema = properties[currentId].NominalValue.value;
-                  //console.log("ID: " + numId);
-                  //console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
-                  //console.log("sistema: " + JSON.stringify(sistema));
+                  ////console.log("ID: " + numId);
+                  ////console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
+                  ////console.log("sistema: " + JSON.stringify(sistema));
                   if (!groups.nombreSistema[nombreSistema]) {
                     groups.nombreSistema[nombreSistema] = [];
                   }
@@ -707,11 +709,11 @@ export class BuildingScene {
                 }
 
                 if (properties[currentId].Name.value === "CSPT_FM_HabitacioCodi") {
-                  //console.log("properties[currentId]: " + JSON.stringify(properties[currentId].NominalValue.value));
+                  ////console.log("properties[currentId]: " + JSON.stringify(properties[currentId].NominalValue.value));
                   codigoHabitacion = properties[currentId].NominalValue.value;
-                  //console.log("ID: " + numId);
-                  //console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
-                  //console.log("codigoHabitacion: " + JSON.stringify(codigoHabitacion));
+                  ////console.log("ID: " + numId);
+                  ////console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
+                  ////console.log("codigoHabitacion: " + JSON.stringify(codigoHabitacion));
                   if (!groups.codigoHabitacion[codigoHabitacion]) {
                     groups.codigoHabitacion[codigoHabitacion] = [];
                   }
@@ -723,24 +725,24 @@ export class BuildingScene {
 
               currentId = currentId + 1;
             } else {
-              //console.log("NO EXOSTE ID!!");
+              ////console.log("NO EXOSTE ID!!");
               flag = false;
             }
 
           }
 
 
-          //console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
-          //console.log("sistema: " + JSON.stringify(sistema));
-          //console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
-          //console.log("floorExpressID: " + JSON.stringify(floorExpressID));
-          //console.log("floor: " + JSON.stringify(floor));
+          ////console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
+          ////console.log("sistema: " + JSON.stringify(sistema));
+          ////console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
+          ////console.log("floorExpressID: " + JSON.stringify(floorExpressID));
+          ////console.log("floor: " + JSON.stringify(floor));
 
 
         }
 
-        //console.log("groups.category[category]: " + JSON.stringify(groups.category));
-        //console.log("salida: " + JSON.stringify(sistemas.sistema));
+        ////console.log("groups.category[category]: " + JSON.stringify(groups.category));
+        ////console.log("salida: " + JSON.stringify(sistemas.sistema));
 
 
         this.fragments.groups.add(fragment.id, groups);
@@ -751,6 +753,6 @@ export class BuildingScene {
       }
     }
 
-    //console.log("fragments: " + JSON.stringify(this.fragments.groups.groupSystems));
+    ////console.log("fragments: " + JSON.stringify(this.fragments.groups.groupSystems));
   }
 }

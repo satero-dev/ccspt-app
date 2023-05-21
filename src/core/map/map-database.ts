@@ -1,13 +1,6 @@
 import { getApp } from "firebase/app";
 import { User } from "firebase/auth";
-import {
-  addDoc,
-  collection,
-  getFirestore,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection, getFirestore, onSnapshot, query, where } from "firebase/firestore";
 import { Asset, Building } from "../../types";
 
 export class MapDataBase {
@@ -16,18 +9,11 @@ export class MapDataBase {
 
   async addBuilding(building: Building) {
 
-    console.log("ADD EDIFICIO MAP-DATABASE 1");
+    //console.log("ADD EDIFICIO MAP-DATABASE 1");
 
     const dbInstance = getFirestore(getApp());
     const { name, tipo, lat, lng, userID, models } = building;
-    const result = await addDoc(collection(dbInstance, this.buildings), {
-      name,
-      tipo,
-      lat,
-      lng,
-      userID,
-      models,
-    });
+    const result = await addDoc(collection(dbInstance, this.buildings), { name, tipo, lat, lng, userID, models });
     return result.id;
   }
 

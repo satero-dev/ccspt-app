@@ -18,36 +18,47 @@ export const BuildingSidebar: FC<{
 }> = (props) => {
   const { open, onToggleMenu } = props;
   const [state, dispatch] = useAppContext();
+  const { role } = state;
+
+  //console.log("ROLE MASTER: " + role);
 
   return (
-    <List>
-      {tools.map((tool) => (
-        <ListItem
-          onClick={() => tool.action({ onToggleMenu, state, dispatch })}
-          key={tool.name}
-          disablePadding
-          sx={{ display: "block" }}
-        >
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              {tool.icon}
-            </ListItemIcon>
-            <ListItemText primary={tool.name} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <List sx={{ background: "#eeeeee" }}>
+        {tools.map((tool) => {
+          if (role == "admin" || tool.role === "guest") {
+            return (
+              <ListItem
+                onClick={() => tool.action({ onToggleMenu, state, dispatch })}
+                key={tool.name}
+                disablePadding
+                sx={{ display: "block" }}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {tool.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={tool.name} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            );
+          } else {
+            return null; // Opcionalmente, puedes omitir los elementos que no cumplen la condición
+          }
+        })}
+      </List>
+    </>
   );
 };
