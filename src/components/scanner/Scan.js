@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 //import Scanner from "../components/Scanner/Scanner";
 //import { ActionsContext } from "../contexts/context";
 import { useAppContext } from "../../middleware/context-provider";
+import "./PopUpWindow.css";
 
 const Scan = () => {
   console.log("ESCANEANDO QUE ES GERUNDIO");
@@ -56,7 +57,11 @@ const Scan = () => {
     scan();
   }, [scan]);
 
-  return <>{message}</>;
+  return (
+    <>
+      <div className="UUID">{message}</div>
+    </>
+  );
 };
 
 export default Scan;
