@@ -9,8 +9,14 @@ import { MapDataBase } from "../../core/map/map-database";
 
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
 import LogoutIcon from '@mui/icons-material/Logout';
+import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import PopUpWindow from "./PopUpWindow";
+
+
+
+
 
 
 export const MapViewer: FC = () => {
@@ -23,6 +29,24 @@ export const MapViewer: FC = () => {
   //State que controla los datos recibidos
   const [datos, setDatos] = useState<any[]>([]);
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  //Parámetros de control de escaneo
+  const [isScanning, setIsScanning] = useState(false);
+
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+  const togglePopUp = () => {
+    setIsPopUpOpen(!isPopUpOpen);
+  };
+
+  const onScan = () => {
+
+    setIsScanning(!isScanning);
+    console.log("Pulsamos botón Scan");
+    //dispatch({ type: "OPEN_SCAN" });
+    //dispatch({ type: "SCAN_ASSET" });
+
+  }
 
 
   const onToggleCreate = () => {
@@ -104,12 +128,23 @@ export const MapViewer: FC = () => {
         </div>
       )}
 
+      {isScanning && (
+        <div className="scanner">
+          {<PopUpWindow toggle={togglePopUp} />}
+        </div>
+      )}
+
       <Grid className="bottom-menu" gap={2}>
         {role == "admin" && (
           <Card>
             <IconButton onClick={onToggleCreate} key="createBuilding"><DomainAddIcon /></IconButton>
           </Card>
         )}
+
+        <Card>
+          <IconButton onClick={onScan}><DocumentScannerIcon /></IconButton>
+        </Card>
+
         <Card>
           <IconButton onClick={toggleFullscreen}>
             {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}

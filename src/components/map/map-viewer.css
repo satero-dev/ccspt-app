@@ -21,6 +21,18 @@
   pointer-events: all;
 }
 
+.scanner {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(52, 182, 233, 0.63);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000000;
+}
+
 .bottom-menu {
   position: absolute;
   height: 1rem;
@@ -31,5 +43,3 @@
   display: flex;
   align-items: center;
 }
-
-

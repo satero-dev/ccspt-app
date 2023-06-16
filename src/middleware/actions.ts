@@ -21,7 +21,9 @@ export const ActionList = [
   "UPDATE_SYSTEMS",
   "LOAD_DATA",
   "GOTO_ASSET",
-  "SET_ROLE"
+  "SET_ROLE",
+  "OPEN_SCAN",
+  "SCAN_ASSET"
 ] as const;
 
 type ActionListType = typeof ActionList;

@@ -4,6 +4,8 @@ import { Action } from "./actions";
 import { Events } from "./event-handler";
 import { buildingHandler } from "../core/building/building-handler";
 
+
+
 export const executeCore = async (action: Action, events: Events) => {
   if (action.type === "LOGIN") {
     return databaseHandler.login(action);
@@ -57,6 +59,16 @@ export const executeCore = async (action: Action, events: Events) => {
   if (action.type === "TOGGLE_FLOORPLAN") {
     const { active, floorplan } = action.payload;
     return buildingHandler.toggleFloorplan(active, floorplan);
+  }
+
+  if (action.type === "OPEN_SCAN") {
+
+    console.log("ABRIENDO SCAN");
+
+  }
+
+  if (action.type === "SCAN_ASSET") {
+    return mapHandler.scanAsset(action.payload);
   }
 
 
