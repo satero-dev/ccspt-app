@@ -9,6 +9,7 @@ export interface State {
   floorplans: Floorplan[];
   properties: Property[];
   systems: System[];
+  scan: String;
 }
 
 export const initialState: State = {
@@ -18,4 +19,5 @@ export const initialState: State = {
   floorplans: [],
   properties: [],
   systems: [],
+  scan: "",
 };

@@ -6,7 +6,7 @@
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  z-index: 10000000;
+  z-index: 8888;
   font-size: small;
 }
 

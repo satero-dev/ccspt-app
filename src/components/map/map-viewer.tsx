@@ -12,7 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import PopUpWindow from "./PopUpWindow";
+import PopUpWindow from "../scanner/PopUpWindow";
 
 
 
@@ -31,7 +31,7 @@ export const MapViewer: FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   //Parámetros de control de escaneo
-  const [isScanning, setIsScanning] = useState(false);
+  const [isScanOpen, setIsScanOpen] = useState(false);
 
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
@@ -39,9 +39,9 @@ export const MapViewer: FC = () => {
     setIsPopUpOpen(!isPopUpOpen);
   };
 
-  const onScan = () => {
+  const openScan = () => {
 
-    setIsScanning(!isScanning);
+    setIsScanOpen(!isScanOpen);
     console.log("Pulsamos botón Scan");
     //dispatch({ type: "OPEN_SCAN" });
     //dispatch({ type: "SCAN_ASSET" });
@@ -128,10 +128,10 @@ export const MapViewer: FC = () => {
         </div>
       )}
 
-      {isScanning && (
-        <div className="scanner">
-          {<PopUpWindow toggle={togglePopUp} />}
-        </div>
+      {isScanOpen && (
+
+        <PopUpWindow toggle={togglePopUp} />
+
       )}
 
       <Grid className="bottom-menu" gap={2}>
@@ -142,7 +142,7 @@ export const MapViewer: FC = () => {
         )}
 
         <Card>
-          <IconButton onClick={onScan}><DocumentScannerIcon /></IconButton>
+          <IconButton onClick={openScan}><DocumentScannerIcon /></IconButton>
         </Card>
 
         <Card>

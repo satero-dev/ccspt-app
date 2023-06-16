@@ -3,7 +3,7 @@ import { databaseHandler } from "../core/database/db-handler";
 import { Action } from "./actions";
 import { Events } from "./event-handler";
 import { buildingHandler } from "../core/building/building-handler";
-
+import Scan from "../components/scanner/Scan";
 
 
 export const executeCore = async (action: Action, events: Events) => {
@@ -67,9 +67,13 @@ export const executeCore = async (action: Action, events: Events) => {
 
   }
 
-  if (action.type === "SCAN_ASSET") {
-    return mapHandler.scanAsset(action.payload);
-  }
+  /*if (action.type === "SCAN_ASSET") {
+    return (
+      <div>
+      < Scan />
+      </>
+    )
+  }*/
 
 
   //Cargamos información de edificios

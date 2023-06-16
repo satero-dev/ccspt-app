@@ -30,7 +30,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10000000;
+  z-index: 11000;
 }
 
 .bottom-menu {
