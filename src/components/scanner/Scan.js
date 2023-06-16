@@ -56,14 +56,7 @@ const Scan = () => {
     scan();
   }, [scan]);
 
-  return (
-    <>
-      <div>
-        <p>Serial Number: {serialNumber}</p>
-        <p>Message: {message}</p>
-      </div>
-    </>
-  );
+  return <>{message}</>;
 };
 
 export default Scan;

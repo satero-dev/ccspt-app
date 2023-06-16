@@ -41,14 +41,17 @@ const PopUpWindow: React.FC<PopUpProps> = ({ toggle }) => {
     <div className="modal">
       <div className="modal_content">
         <form>
-          <h3>Escanea!</h3>
+          <h3>Activo</h3>
           {isScanning && <Scan />}
-          <label>
-            Nombre del activo: <input type="text" name="name" />
-          </label>
           <br />
           <label>
             Nombre del activo: <input type="text" name="name" />
+          </label>
+          <label>
+            Coordenadas: <input type="text" name="name" />
+          </label>
+          <label>
+            Planta: <input type="text" name="name" />
           </label>
           <br />
           <Button variant="contained" onClick={scanAsset}>Scan</Button>
