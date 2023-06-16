@@ -58,14 +58,10 @@ const Scan = () => {
 
   return (
     <>
-      {actions.scan === "scanned" ? (
-        <div>
-          <p>Serial Number: {serialNumber}</p>
-          <p>Message: {message}</p>
-        </div>
-      ) : (
-        <p>PEDRO PABLO</p>
-      )}
+      <div>
+        <p>Serial Number: {serialNumber}</p>
+        <p>Message: {message}</p>
+      </div>
     </>
   );
 };
