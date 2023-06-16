@@ -99,8 +99,8 @@ export const MapViewer: FC = () => {
       />
       {isCreating && (
         <div className="overlay">
-          <p>Right click to create a new building or</p>
-          <Button onClick={onToggleCreate}>cancel</Button>
+          <p>Clica en el botón derecho para crear un nuevo edificio o |</p>
+          <Button variant="contained" onClick={onToggleCreate}>cancela</Button>
         </div>
       )}
 
