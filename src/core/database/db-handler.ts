@@ -18,9 +18,11 @@ export const databaseHandler = {
       let user = action.payload.user;
       let pass = action.payload.pass;
 
+      console.log("USER: " + user);
+
       //Defino un usuario y un password por defecto, cambiar al final
-      if (user == "") user = "satero@tauli.cat";
-      if (pass == "") pass = "T0t0r0!!";
+      /*if (user == "") user = "invitado@uoc.edu";
+      if (pass == "") pass = "undostrescuatro";*/
 
       signInWithEmailAndPassword(auth, user, pass)
         .then((userCredential) => {

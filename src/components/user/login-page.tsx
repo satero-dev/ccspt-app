@@ -16,8 +16,8 @@ export const LoginPage = ({ children }: Props) => {
 
   const [state, dispatch] = useAppContext();
 
-  const [inputUser, setInputUser] = useState("");
-  const [inputPass, setInputPass] = useState("");
+  const [inputUser, setInputUser] = useState("invitado@uoc.edu");
+  const [inputPass, setInputPass] = useState("undostrescuatro");
 
   const onLogin = (e: Event) => {
     console.log("Logging in!: " + e.target);
@@ -45,8 +45,8 @@ export const LoginPage = ({ children }: Props) => {
       <img className="landing-logo" alt="pt logo" src="pt-logo-landing.png" width={250} />
 
       <div className="tf">
-        <TextField id="usuario" label="Usuario" variant="filled" onChange={(event) => setInputUser(event.target.value)} />
-        <TextField id="pass" type="password" label="Contraseña" variant="filled" onChange={(event) => setInputPass(event.target.value)} />
+        <TextField id="usuario" label="Usuario" value={inputUser} variant="filled" onChange={(event) => setInputUser(event.target.value)} />
+        <TextField id="pass" type="password" value={inputPass} label="Contraseña" variant="filled" onChange={(event) => setInputPass(event.target.value)} />
       </div>
       <Button variant="contained" color="primary" onClick={onLogin}>
         Entrar
