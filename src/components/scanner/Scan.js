@@ -4,8 +4,10 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useAppContext } from "../../middleware/context-provider";
 import "./PopUpWindow.css";
 
+let pepo = "A";
+
 const Scan = () => {
-  console.log("ESCANEANDO QUE ES GERUNDIO");
+  //console.log("ESCANEANDO QUE ES GERUNDIO");
 
   const [message, setMessage] = useState("");
   const [serialNumber, setSerialNumber] = useState("");
@@ -38,6 +40,7 @@ const Scan = () => {
 
   const onReading = ({ message, serialNumber }) => {
     setSerialNumber(serialNumber);
+    pepo = "FARR";
     for (const record of message.records) {
       switch (record.recordType) {
         case "text":
@@ -65,6 +68,7 @@ const Scan = () => {
 };
 
 export default Scan;
+export { pepo };
 
 /*
 <>

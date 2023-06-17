@@ -6,6 +6,7 @@ import { useAppContext } from "../../middleware/context-provider";
 import { Button, TextField, Grid, Box } from "@mui/material";
 
 import Scan from "./Scan";
+import { pepo } from "./Scan";
 import RadarIcon from '@mui/icons-material/Radar';
 
 interface PopUpProps {
@@ -13,6 +14,9 @@ interface PopUpProps {
 }
 
 const PopUpWindow: React.FC<PopUpProps> = ({ toggle }) => {
+
+  console.log("SCAN VALUE: " + pepo);
+
   const handleClick = () => {
     toggle();
   };
@@ -40,6 +44,8 @@ const PopUpWindow: React.FC<PopUpProps> = ({ toggle }) => {
 
   return (
 
+
+
     <Box
       component="form"
       sx={{
@@ -52,18 +58,26 @@ const PopUpWindow: React.FC<PopUpProps> = ({ toggle }) => {
         <div className="modal_content">
 
           <h3>Activo</h3>
-          <TextField disabled type="Usuario" id="outlined-basic" label="UUID" variant="standard" value={isScanning ? <Scan /> : "HOLA"} />
-          {isScanning && <Scan />}
-          <TextField type="Usuario" id="outlined-basic" label="Nombre del activo" variant="standard" />
-          <TextField disabled type="Usuario" id="outlined-basic" label="Coordenadas" variant="standard" />
-          <TextField type="Usuario" id="outlined-basic" label="Planta" variant="standard" />
+          {isScanning &&
+            <>
+              <Scan />
+              <TextField type="Usuario" id="outlined-basic" label="Nombre del activo" variant="standard" value={pepo} />
+              <TextField disabled type="Usuario" id="outlined-basic" label="Longitud" variant="standard" />
+              <TextField disabled type="Usuario" id="outlined-basic" label="Latitud" variant="standard" />
+              <TextField type="Usuario" id="outlined-basic" label="Planta" variant="standard" />
+            </>
+          }
 
 
           <Grid>
-            {isScanning ? <Button variant="contained" onClick={scanAsset}>ESCANEANDO...</Button> : <Button variant="contained" onClick={scanAsset}>ESCANEAR</Button>}
-
-            <Button variant="contained" onClick={scanAsset}>GUARDAR</Button>
+            {isScanning ? <Button variant="contained" onClick={scanAsset}>ESCANEANDO...</Button> : <Button variant="contained" onClick={scanAsset}>ESCANEAR ACTIVO</Button>}
           </Grid>
+          {isScanning &&
+            <Grid>
+              <Button variant="contained" onClick={scanAsset}>REGISTRAR ACTIVO</Button>
+            </Grid>
+          }
+
 
         </div>
         <div className="modal_background" />
