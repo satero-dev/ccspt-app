@@ -3,9 +3,10 @@ import "./PopUpWindow.css";
 import { useState } from 'react';
 
 import { useAppContext } from "../../middleware/context-provider";
-import { Button, Card, Grid, IconButton } from "@mui/material";
+import { Button, TextField, Grid, Box } from "@mui/material";
 
 import Scan from "./Scan";
+import RadarIcon from '@mui/icons-material/Radar';
 
 interface PopUpProps {
   toggle: () => void;
@@ -38,27 +39,36 @@ const PopUpWindow: React.FC<PopUpProps> = ({ toggle }) => {
   }*/
 
   return (
-    <div className="modal">
-      <div className="modal_content">
-        <form>
+
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div className="modal">
+        <div className="modal_content">
+
           <h3>Activo</h3>
+          <TextField disabled type="Usuario" id="outlined-basic" label="UUID" variant="standard" value={isScanning ? <Scan /> : "HOLA"} />
           {isScanning && <Scan />}
-          <br />
-          <label>
-            Nombre del activo: <input type="text" name="name" />
-          </label>
-          <label>
-            Coordenadas: <input type="text" name="name" />
-          </label>
-          <label>
-            Planta: <input type="text" name="name" />
-          </label>
-          <br />
-          <Button variant="contained" onClick={scanAsset}>Scan</Button>
-        </form>
+          <TextField type="Usuario" id="outlined-basic" label="Nombre del activo" variant="standard" />
+          <TextField disabled type="Usuario" id="outlined-basic" label="Coordenadas" variant="standard" />
+          <TextField type="Usuario" id="outlined-basic" label="Planta" variant="standard" />
+
+
+          <Grid>
+            {isScanning ? <Button variant="contained" onClick={scanAsset}>ESCANEANDO...</Button> : <Button variant="contained" onClick={scanAsset}>ESCANEAR</Button>}
+
+            <Button variant="contained" onClick={scanAsset}>GUARDAR</Button>
+          </Grid>
+
+        </div>
+        <div className="modal_background" />
       </div>
-      <div className="modal_background" />
-    </div>
+    </Box>
   );
 };
 

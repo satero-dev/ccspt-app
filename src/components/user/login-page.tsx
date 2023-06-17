@@ -45,7 +45,7 @@ export const LoginPage = ({ children }: Props) => {
       <img className="landing-logo" alt="pt logo" src="pt-logo-landing.png" width={250} />
 
       <div className="tf">
-        <TextField id="usuario" label="Usuario" value={inputUser} variant="filled" onChange={(event) => setInputUser(event.target.value)} />
+        <TextField id="usuario" type="Usuario" value={inputUser} label="Usuario" variant="filled" onChange={(event) => setInputUser(event.target.value)} />
         <TextField id="pass" type="password" value={inputPass} label="Contraseña" variant="filled" onChange={(event) => setInputPass(event.target.value)} />
       </div>
       <Button variant="contained" color="primary" onClick={onLogin}>
