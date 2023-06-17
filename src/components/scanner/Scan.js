@@ -62,7 +62,11 @@ const Scan = () => {
 
   return (
     <>
-      <div className="UUID">{message}</div>
+      {message ? (
+        <div className="UUID">{message}</div>
+      ) : (
+        <div className="UUID">BUSCANDO TAG...</div>
+      )}
     </>
   );
 };
