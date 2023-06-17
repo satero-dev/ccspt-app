@@ -40,7 +40,7 @@ const Scan = () => {
 
   const onReading = ({ message, serialNumber }) => {
     setSerialNumber(serialNumber);
-    pepo = "FARR";
+
     for (const record of message.records) {
       switch (record.recordType) {
         case "text":
@@ -58,6 +58,7 @@ const Scan = () => {
 
   useEffect(() => {
     scan();
+    pepo = message;
   }, [scan]);
 
   return (
