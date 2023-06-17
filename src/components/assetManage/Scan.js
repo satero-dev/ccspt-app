@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 //import Scanner from "../components/Scanner/Scanner";
 //import { ActionsContext } from "../contexts/context";
 import { useAppContext } from "../../middleware/context-provider";
-import "./PopUpWindow.css";
+import "./asset-menu-style.css";
 
 let pepo = "A";
 
@@ -12,8 +12,12 @@ const Scan = () => {
   const [message, setMessage] = useState("");
   const [serialNumber, setSerialNumber] = useState("");
   const { actions, setActions } = useAppContext();
+  const [state, dispatch] = useAppContext();
 
   const scan = useCallback(async () => {
+    console.log("ESCANEANDORRR");
+    dispatch({ type: "SCAN_ASSET" });
+
     if ("NDEFReader" in window) {
       try {
         const ndef = new window.NDEFReader();

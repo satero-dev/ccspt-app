@@ -12,6 +12,7 @@
 }
 
 .modal_content {
+  position: relative;
   background-color: #fff;
   padding: 20px;
   border-radius: 4px;
@@ -23,13 +24,22 @@
   pointer-events: none;
 }
 
-.close {
-  position: relative;
-  top: 0px;
-  left: 0px;
+.data_message {
+  border: 1px solid #666;
+  margin: 20px 0;
+  padding: 10px;
+  align-content: center;
+}
+
+.data_content {
+  margin-bottom: 30px;
+}
+
+.close_button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
-  font-size: 18px;
-  color: #aaa;
 }
 
 form {
@@ -68,5 +78,5 @@ input[type="submit"]:hover {
 }
 
 .UUID {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }

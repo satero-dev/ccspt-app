@@ -18,10 +18,11 @@ export const mapHandler = {
   },
 
 
-  scanAsset(user: User) {
+  addAsset(asset: Asset) {
+
     if (this.viewer) {
       //console.log("map-handler scan");
-      this.viewer.addAsset(user);
+      this.viewer.addAsset(asset);
     }
   },
 

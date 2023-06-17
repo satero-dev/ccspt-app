@@ -12,7 +12,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import PopUpWindow from "../scanner/PopUpWindow";
+
+import RegisterAssetWindow from "../assetManage/register-asset";
+import UpdateAssetWindow from "../assetManage/update-asset";
+
+
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 
 
@@ -31,17 +37,36 @@ export const MapViewer: FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   //Parámetros de control de escaneo
-  const [isScanOpen, setIsScanOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isUpdateOpen, setIsUpdateOpen] = useState(false);
 
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
-  const togglePopUp = () => {
-    setIsPopUpOpen(!isPopUpOpen);
+  /*const togglePopUp = () => {
+    //setIsPopUpOpen(!isPopUpOpen);
+    toggle();
+  };*/
+
+  const closeRegisterAsset = () => {
+    setIsRegisterOpen(false);
   };
 
-  const openScan = () => {
+  const closeUpdateAsset = () => {
+    setIsUpdateOpen(false);
+  };
 
-    setIsScanOpen(!isScanOpen);
+  const registerAsset = () => {
+
+    setIsRegisterOpen(!isRegisterOpen);
+    console.log("Pulsamos botón Scan");
+    //dispatch({ type: "OPEN_SCAN" });
+    //dispatch({ type: "SCAN_ASSET" });
+
+  }
+
+  const updateAsset = () => {
+
+    setIsUpdateOpen(!isUpdateOpen);
     console.log("Pulsamos botón Scan");
     //dispatch({ type: "OPEN_SCAN" });
     //dispatch({ type: "SCAN_ASSET" });
@@ -74,6 +99,7 @@ export const MapViewer: FC = () => {
     }
   };
 
+
   useEffect(() => {
     const container = containerRef.current;
     if (container && user) {
@@ -86,17 +112,19 @@ export const MapViewer: FC = () => {
 
       const fetchData = async () => {
 
-        const allDatabases = await Promise.all([database.getAssets(), database.getBuildings()])
+        const allDatabases = await Promise.all([database.getBuildings(), database.getAssets()])
 
-        const assetsDatabase = await allDatabases[0];
-        const buildingsDatabase = await allDatabases[1];
+        const assetsDatabase = await allDatabases[1];
+        const buildingsDatabase = await allDatabases[0];
 
         // //console.log("DATABASE ASSETS: " + assetsDatabase[0].autoID);
 
         //Unimos arrays de diferentes objetos
-        Array.prototype.push.apply(assetsDatabase, buildingsDatabase);
+        Array.prototype.push.apply(buildingsDatabase, assetsDatabase);
 
-        setDatos(assetsDatabase);
+        buildingsDatabase.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) //Función inline de Marco Demaio
+
+        setDatos(buildingsDatabase);
       };
       fetchData();
 
@@ -128,9 +156,15 @@ export const MapViewer: FC = () => {
         </div>
       )}
 
-      {isScanOpen && (
+      {isRegisterOpen && (
 
-        <PopUpWindow toggle={togglePopUp} />
+        <RegisterAssetWindow onClose={closeRegisterAsset} />
+
+      )}
+
+      {isUpdateOpen && (
+
+        <UpdateAssetWindow onClose={closeUpdateAsset} />
 
       )}
 
@@ -142,7 +176,11 @@ export const MapViewer: FC = () => {
         )}
 
         <Card>
-          <IconButton onClick={openScan}><DocumentScannerIcon /></IconButton>
+          <IconButton onClick={registerAsset}><AddBoxIcon /></IconButton>
+        </Card>
+
+        <Card>
+          <IconButton onClick={updateAsset}><AppRegistrationIcon /></IconButton>
         </Card>
 
         <Card>

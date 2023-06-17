@@ -5,6 +5,7 @@ export const ActionList = [
   "START_MAP",
   "REMOVE_MAP",
   "ADD_BUILDING",
+  "ADD_ASSET",
   "OPEN_BUILDING",
   "START_BUILDING",
   "DELETE_BUILDING",

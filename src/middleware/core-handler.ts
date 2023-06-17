@@ -3,7 +3,7 @@ import { databaseHandler } from "../core/database/db-handler";
 import { Action } from "./actions";
 import { Events } from "./event-handler";
 import { buildingHandler } from "../core/building/building-handler";
-import Scan from "../components/scanner/Scan";
+import Scan from "../components/assetManage/Scan";
 
 
 export const executeCore = async (action: Action, events: Events) => {
@@ -24,6 +24,11 @@ export const executeCore = async (action: Action, events: Events) => {
   }
   if (action.type === "ADD_BUILDING") {
     return mapHandler.addBuilding(action.payload);
+  }
+  if (action.type === "ADD_ASSET") {
+    const { name } = action.payload;
+    console.log("ASSET 2:" + name);
+    return mapHandler.addAsset(action.payload);
   }
   if (action.type === "DELETE_BUILDING") {
     return databaseHandler.deleteBuilding(action.payload, events);
@@ -64,6 +69,12 @@ export const executeCore = async (action: Action, events: Events) => {
   if (action.type === "OPEN_SCAN") {
 
     console.log("ABRIENDO SCAN");
+
+  }
+
+  if (action.type === "SCAN_ASSET") {
+
+    console.log("OJO CUIDADO");
 
   }
 

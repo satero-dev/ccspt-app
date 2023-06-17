@@ -7,6 +7,8 @@ import { User } from "firebase/auth";
 import { MapDataBase } from "./map-database";
 import { Events } from "../../middleware/event-handler";
 
+import { v4 as uuidv4 } from "uuid";
+
 export class MapScene {
   private components = new OBC.Components();
   private readonly style = "mapbox://styles/mapbox/streets-v12";
@@ -126,9 +128,10 @@ export class MapScene {
 
 
 
-  async addAsset(user: User) {
+  async addAsset(asset: Asset) {
 
     //console.log("INTENTOLO")
+    console.log("ASSET 4: " + asset.name);
 
     let longitud = 0;
     let latitud = 0;
@@ -137,19 +140,21 @@ export class MapScene {
 
       longitud = position.coords.longitude;
       latitud = position.coords.latitude;
-      this.datos(longitud, latitud);
+      this.datos(longitud, latitud, asset.name);
 
     });
 
   }
 
-  async datos(longitud: number, latitud: number) {
+  async datos(longitud: number, latitud: number, name: string) {
 
 
     const { lat, lng } = { lat: latitud, lng: longitud };
     const tipo = "Activo";
-    const asset = { uid: "", name: "Activo nuevo", lat, lng, tipo };
+    console.log("NAME: " + name);
+    const asset = { uid: "", name, lat, lng, tipo };
     asset.name = await this.database.addAsset(asset);
+    console.log("ASSET 5");
 
     this.addAssetToScene([asset]);
 
@@ -157,6 +162,9 @@ export class MapScene {
   }
 
   private addAssetToScene(assets: Asset[]) {
+
+    console.log("ASSET 6");
+
     for (const asset of assets) {
 
 
