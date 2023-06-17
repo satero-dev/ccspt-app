@@ -17,6 +17,10 @@ const Scan = ({ onUpdateMessage }) => {
   const scan = useCallback(async () => {
     //dispatch({ type: "SCAN_ASSET", payload: "VALOR POR DEFECTO" });
 
+    /* const scannedMessage = "Mensaje del escaneo NFC";
+    setMessage(scannedMessage);
+    onUpdateMessage(scannedMessage); // Llamada a la función onUpdateMessage del padre*/
+
     if ("NDEFReader" in window) {
       try {
         const ndef = new window.NDEFReader();
@@ -54,6 +58,9 @@ const Scan = ({ onUpdateMessage }) => {
         // TODO: Handle other records with record data.
       }
     }
+
+    setMessage(message);
+    onUpdateMessage(message); // Llamada a la función onUpdateMessage del padre
   };
 
   useEffect(() => {
