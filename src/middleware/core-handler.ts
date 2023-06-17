@@ -77,7 +77,7 @@ export const executeCore = async (action: Action, events: Events) => {
   if (action.type === "SCAN_ASSET") {
 
     console.log("OJO CUIDADO: " + action.payload);
-    //return UpdateAssetWindow.scanAsset();
+    //return UpdateAssetWindow();
 
   }
 

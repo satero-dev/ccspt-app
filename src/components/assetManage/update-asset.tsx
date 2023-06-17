@@ -32,6 +32,12 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   //const { scan } = state;
   const { user, building, role, asset } = state;
 
+  const [message, setMessage] = useState("");
+
+  const handleUpdateMessage = (newMessage: any) => {
+    setMessage(newMessage);
+  };
+
   const actualizaForm = () => {
     console.log("ACTUALIZA FORMULARIO");
   }
@@ -57,7 +63,6 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
   useEffect(() => {
 
-
     //Lectura de base de datos
     let database = new MapDataBase();
 
@@ -79,7 +84,7 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     fetchData();
 
 
-  }, [pepo]);
+  }, []);
 
 
 
@@ -110,8 +115,8 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
             <h3>Modificar activo</h3>
             <>
               <div className="data_content">
-                {isScanning && <Scan />}
-                <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" value={pepo} />
+                {isScanning && <Scan onUpdateMessage={handleUpdateMessage} />}
+                <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" value={message} />
                 <TextField type="Usuario" id="asset-lvl" label="Planta" variant="standard" />
 
               </div>

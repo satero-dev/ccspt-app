@@ -6,7 +6,7 @@ import "./asset-menu-style.css";
 
 let pepo = "A";
 
-const Scan = () => {
+const Scan = ({ onUpdateMessage }) => {
   //console.log("ESCANEANDO QUE ES GERUNDIO");
 
   const [message, setMessage] = useState("");
