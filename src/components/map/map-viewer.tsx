@@ -14,7 +14,7 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
 import RegisterAssetWindow from "../assetManage/register-asset";
-import UpdateAssetWindow from "../assetManage/update-asset";
+import { UpdateAssetWindow } from "../assetManage/update-asset";
 
 
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -117,7 +117,7 @@ export const MapViewer: FC = () => {
         const assetsDatabase = await allDatabases[1];
         const buildingsDatabase = await allDatabases[0];
 
-        // //console.log("DATABASE ASSETS: " + assetsDatabase[0].autoID);
+        //console.log("DATABASE ASSETS: " + assetsDatabase[0].name);
 
         //Unimos arrays de diferentes objetos
         Array.prototype.push.apply(buildingsDatabase, assetsDatabase);

@@ -4,6 +4,8 @@ import { Action } from "./actions";
 import { Events } from "./event-handler";
 import { buildingHandler } from "../core/building/building-handler";
 import Scan from "../components/assetManage/Scan";
+import { UpdateAssetWindow } from "../components/assetManage/update-asset";
+
 
 
 export const executeCore = async (action: Action, events: Events) => {
@@ -74,7 +76,8 @@ export const executeCore = async (action: Action, events: Events) => {
 
   if (action.type === "SCAN_ASSET") {
 
-    console.log("OJO CUIDADO");
+    console.log("OJO CUIDADO: " + action.payload);
+    //return UpdateAssetWindow.scanAsset();
 
   }
 

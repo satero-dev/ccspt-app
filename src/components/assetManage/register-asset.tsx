@@ -35,7 +35,7 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     const newAsset = { ...asset } as any;
     newAsset.name = data.get("asset-name") || "PERICO";
     console.log("ASSET 1");
-    //dispatch({ type: "ADD_ASSET", payload: newAsset });
+    dispatch({ type: "ADD_ASSET", payload: newAsset });
   };
 
   return (

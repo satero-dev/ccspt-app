@@ -1,6 +1,6 @@
 import React from "react";
 import "./asset-menu-style.css";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useAppContext } from "../../middleware/context-provider";
 import { Button, TextField, Grid, Box } from "@mui/material";
@@ -10,11 +10,13 @@ import { pepo } from "./Scan";
 import RadarIcon from '@mui/icons-material/Radar';
 import CloseIcon from '@mui/icons-material/Close';
 
+import { MapDataBase } from "../../core/map/map-database";
+
 interface PopUpProps {
   onClose: () => void;
 }
 
-const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
+export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
   console.log("SCAN VALUE: " + pepo);
 
@@ -30,6 +32,10 @@ const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   //const { scan } = state;
   const { user, building, role, asset } = state;
 
+  const actualizaForm = () => {
+    console.log("ACTUALIZA FORMULARIO");
+  }
+
   const scanAsset = () => {
 
     setIsScanning(!isScanning);
@@ -39,26 +45,42 @@ const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
   }
 
-  const addAsset = (event: React.FormEvent<HTMLFormElement>) => {
+  const updateAsset = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const newAsset = { ...asset } as any;
     newAsset.name = data.get("asset-name") || "PERICO";
     console.log("ASSET 1");
-    dispatch({ type: "ADD_ASSET", payload: newAsset });
+    //dispatch({ type: "ADD_ASSET", payload: newAsset });
 
   };
 
-  /*const onUpdateBuilding = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const newBuilding = { ...building } as any;
-    newBuilding.name = data.get("building-name") || building.name;
-    newBuilding.lat = data.get("building-lat") || building.lat;
-    newBuilding.lng = data.get("building-lng") || building.lng;
-    dispatch({ type: "UPDATE_BUILDING", payload: newBuilding });
-    onToggleMenu(false);
-  };*/
+  useEffect(() => {
+
+
+    //Lectura de base de datos
+    let database = new MapDataBase();
+
+    const fetchData = async () => {
+
+      const allDatabases = await Promise.all([database.getAssets()])
+
+      const assetsDatabase = await allDatabases[0];
+
+      console.log("DATABASE ASSETS: " + assetsDatabase[0].name);
+
+      //Unimos arrays de diferentes objetos
+      //Array.prototype.push.apply(buildingsDatabase, assetsDatabase);
+
+      //assetsDatabase.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) //Función inline de Marco Demaio
+
+      //setDatos(buildingsDatabase);
+    };
+    fetchData();
+
+
+  }, [pepo]);
+
 
 
   //const actionsValue = { actions, setActions };
@@ -89,7 +111,7 @@ const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
             <>
               <div className="data_content">
                 {isScanning && <Scan />}
-                <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" />
+                <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" value={pepo} />
                 <TextField type="Usuario" id="asset-lvl" label="Planta" variant="standard" />
 
               </div>
@@ -109,7 +131,7 @@ const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   );
 };
 
-export default UpdateAssetWindow;
+//export default UpdateAssetWindow;
 
 /*
 

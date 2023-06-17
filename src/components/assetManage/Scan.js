@@ -15,8 +15,7 @@ const Scan = () => {
   const [state, dispatch] = useAppContext();
 
   const scan = useCallback(async () => {
-    console.log("ESCANEANDORRR");
-    dispatch({ type: "SCAN_ASSET" });
+    //dispatch({ type: "SCAN_ASSET", payload: "VALOR POR DEFECTO" });
 
     if ("NDEFReader" in window) {
       try {
@@ -50,9 +49,6 @@ const Scan = () => {
         case "text":
           const textDecoder = new TextDecoder(record.encoding);
           setMessage(textDecoder.decode(record.data));
-          break;
-        case "url":
-          // TODO: Read URL record with record data.
           break;
         default:
         // TODO: Handle other records with record data.
