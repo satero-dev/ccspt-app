@@ -73,9 +73,12 @@ export const databaseHandler = {
 
       asset.lng = position.coords.longitude;
       asset.lat = position.coords.latitude;
+      asset.level = "PT2";
 
     });
 
+    console.log("position.coords.longitude: " + asset.lng);
+    asset.level = "PT2";
     const dbInstance = getFirestore(getApp());
     //console.log("CARGANDO BUILDINGS 3: " + building.uid);
     await updateDoc(doc(dbInstance, "assets", asset.uid), {
