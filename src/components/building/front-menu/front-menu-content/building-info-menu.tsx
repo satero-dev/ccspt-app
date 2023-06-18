@@ -32,6 +32,7 @@ export const BuildingInfoMenu: FC<{
           fullWidth
           id="building-id"
           label="ID de Edificio"
+          type=""
           name="building-id"
           autoComplete="building-id"
           value={building.uuid}
@@ -43,6 +44,7 @@ export const BuildingInfoMenu: FC<{
           fullWidth
           id="building-name"
           label="Nombre de Edificio"
+          type=""
           name="building-name"
           autoComplete="building-name"
           defaultValue={building.name}
@@ -54,6 +56,7 @@ export const BuildingInfoMenu: FC<{
           required
           id="building-lng"
           label="Longitud"
+          type=""
           name="building-lng"
           autoComplete="building-lng"
           defaultValue={building.lng}
@@ -65,6 +68,7 @@ export const BuildingInfoMenu: FC<{
           required
           id="building-lat"
           label="Latitud"
+          type=""
           name="building-lat"
           autoComplete="building-lat"
           defaultValue={building.lat}

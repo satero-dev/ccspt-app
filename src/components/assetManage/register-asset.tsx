@@ -77,8 +77,8 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
           <h3>Registrar nuevo activo</h3>
           {isSaving && <Write onUpdateMessage={handleUpdateMessage} uuid={uuid} />}
           <div className="data_content">
-            <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" />
-            <TextField type="Usuario" id="asset-level" label="Nivel" variant="standard" name="asset-level" />
+            <TextField type="" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" />
+            <TextField type="" id="asset-level" label="Nivel" variant="standard" name="asset-level" />
 
             {isSaved &&
               <div className="data_message">

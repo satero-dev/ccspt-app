@@ -71,6 +71,7 @@ export const SearchMenu = ({ datos }: any) => {
                             }
                         }}
                         label="Buscar"
+                        type=""
                         inputProps={{
                             ...params.inputProps,
                             autoComplete: 'new-password', // disable autocomplete and autofill

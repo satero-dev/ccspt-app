@@ -667,9 +667,6 @@ export class BuildingScene {
 
           groups.category[category].push(id);
 
-          /*////console.log("categoryExpressID: " + JSON.stringify(categoryExpressID));
-          ////console.log("category: " + JSON.stringify(category));
-          ////console.log("id:" + JSON.stringify(id));*/
 
           // Get the floors of the items
 
@@ -695,14 +692,10 @@ export class BuildingScene {
 
               try {
 
-                ////console.log("properties[currentId]: " + JSON.stringify(properties[currentId].NominalValue.value));
 
                 if (properties[currentId].Name.value === "Nombre de sistema") {
-                  ////console.log("properties[currentId]: " + JSON.stringify(properties[currentId].NominalValue.value));
+
                   nombreSistema = properties[currentId].NominalValue.value;
-                  ////console.log("ID: " + numId);
-                  ////console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));
-                  ////console.log("sistema: " + JSON.stringify(sistema));
                   if (!groups.nombreSistema[nombreSistema]) {
                     groups.nombreSistema[nombreSistema] = [];
                   }
@@ -712,7 +705,7 @@ export class BuildingScene {
                 }
 
                 if (properties[currentId].Name.value === "CSPT_FM_HabitacioCodi") {
-                  ////console.log("properties[currentId]: " + JSON.stringify(properties[currentId].NominalValue.value));
+
                   codigoHabitacion = properties[currentId].NominalValue.value;
                   ////console.log("ID: " + numId);
                   ////console.log("sistemaExpressID: " + JSON.stringify(sistemaExpressID));

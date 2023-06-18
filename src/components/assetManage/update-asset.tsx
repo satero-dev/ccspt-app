@@ -121,10 +121,10 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
           <>
             <div className="data_content">
               {isScanning && <Scan onUpdateMessage={handleUpdateMessage} />}
-              <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" value={name} onChange={(event) => setName(event.target.value)} />
-              <TextField type="Usuario" id="asset-level" label="Nivel" variant="standard" name="asset-level" value={level} onChange={(event) => setLevel(event.target.value)} />
-              <TextField type="Usuario" id="asset-lat" label="Latitud" variant="standard" name="asset-lat" value={lat} disabled />
-              <TextField type="Usuario" id="asset-lng" label="Longitud" variant="standard" name="asset-lng" value={lng} disabled />
+              <TextField type="" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" value={name} onChange={(event) => setName(event.target.value)} />
+              <TextField type="" id="asset-level" label="Nivel" variant="standard" name="asset-level" value={level} onChange={(event) => setLevel(event.target.value)} />
+              <TextField type="" id="asset-lat" label="Latitud" variant="standard" name="asset-lat" value={lat} disabled />
+              <TextField type="" id="asset-lng" label="Longitud" variant="standard" name="asset-lng" value={lng} disabled />
               {isUpdated &&
                 <div className="data_message">
                   <small>Activo actualizado en la base de datos. </small>
@@ -146,42 +146,3 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
   );
 };
-
-//export default UpdateAssetWindow;
-
-/*
-
-{!isScanning ? <Button variant="contained" type="submit">ESCANEAR TAG</Button> : <Button variant="contained" color="warning">GUARDAR CAMBIOS</Button>}
-
-<Box
-        component="form" onSubmit={addAsset}
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <div className="modal">
-          <div className="modal_content">
-            <div className="close_button" onClick={handleClose}>
-              <CloseIcon />
-            </div>
-            <h3>Registrar nuevo activo</h3>
-            <div className="data_content">
-              <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" />
-              <TextField type="Usuario" id="asset-lvl" label="Planta" variant="standard" />
-              {isCreated &&
-                <div className="data_message">
-                  <small>Activo registrado en la base de datos. </small>
-                  <small>Escanea el tag para asociarlo al activo.</small>
-                </div>}
-            </div>
-
-            {!isCreated ? <Button variant="contained" type="submit">REGISTRAR</Button> : <Button variant="contained" color="warning">GRABAR EN TAG</Button>}
-
-
-          </div>
-          <div className="modal_background" />
-        </div>
-      </Box >
-      */
