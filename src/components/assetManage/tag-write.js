@@ -4,7 +4,9 @@ const Write = () => {
   console.log("ESCRIBIENDO EN EL TAG");
 
   const onWrite = async (message) => {
-    console.log("ESCRIBIENDO EN onWrite");
+    message = "MENSAJE";
+
+    console.log("ESCRIBIENDO EN onWrite: " + message);
 
     if ("NDEFReader" in window) {
       try {
