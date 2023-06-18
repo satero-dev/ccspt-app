@@ -29,6 +29,7 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   //Parámetros de control de escaneo
   const [isScanning, setIsScanning] = useState(false);
   const [isScanned, setIsScanned] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const [shouldFetchData, setShouldFetchData] = useState(false);
   //const [actions, setActions] = useState(null);
@@ -67,6 +68,7 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     //newAsset.name = "PERICO";
     newAsset.uid = message;
     console.log("ASSET 1");
+    setIsUpdated(true);
     dispatch({ type: "UPDATE_ASSET", payload: newAsset });
 
   };
@@ -140,6 +142,10 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
                 <TextField type="Usuario" id="asset-level" label="Nivel" variant="standard" name="asset-level" value={level} onChange={(event) => setLevel(event.target.value)} />
                 <TextField type="Usuario" id="asset-lat" label="Latitud" variant="standard" name="asset-lat" value={lat} disabled />
                 <TextField type="Usuario" id="asset-lng" label="Longitud" variant="standard" name="asset-lng" value={lng} disabled />
+                {isUpdated &&
+                  <div className="data_message">
+                    <small>Activo actualizado en la base de datos. </small>
+                  </div>}
 
 
               </div>
@@ -147,7 +153,7 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
             {!isScanned && (!isScanning ? <Button variant="contained" onClick={scanAsset}>ESCANEAR TAG</Button> : <Button variant="contained" color="warning" disabled>ESCANEAR TAG</Button>)}
 
-            {isScanned && <Button variant="contained" type="submit">ACTUALIZAR ACTIVO</Button>}
+            {isScanned && !isUpdated && <Button variant="contained" type="submit">ACTUALIZAR ACTIVO</Button>}
 
 
           </div>

@@ -130,10 +130,6 @@ export class MapScene {
 
   async addAsset(asset: Asset) {
 
-    //console.log("INTENTOLO")
-    console.log("ASSET 4: " + asset.name);
-    console.log("ASSET 4: " + asset.level);
-
     let longitud = 0;
     let latitud = 0;
 

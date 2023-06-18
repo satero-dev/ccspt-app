@@ -66,6 +66,16 @@ export const databaseHandler = {
 
     console.log("ASSET 3: " + asset.uid);
 
+    let longitud = 0;
+    let latitud = 0;
+
+    navigator.geolocation.getCurrentPosition(position => {
+
+      asset.lng = position.coords.longitude;
+      asset.lat = position.coords.latitude;
+
+    });
+
     const dbInstance = getFirestore(getApp());
     //console.log("CARGANDO BUILDINGS 3: " + building.uid);
     await updateDoc(doc(dbInstance, "assets", asset.uid), {
