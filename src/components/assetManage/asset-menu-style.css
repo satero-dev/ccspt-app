@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999999; /* Asegura que el PopUp esté por encima de los elementos del fondo */
+  z-index: 999999;
 }
 
 .modal_content {
@@ -19,7 +19,7 @@
   width: 300px;
 }
 
-/* Establece pointer-events en none para los elementos del fondo */
+/* Establecemos pointer-events en none para los elementos del fondo */
 .modal_background {
   pointer-events: none;
 }

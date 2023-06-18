@@ -33,48 +33,34 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const createAsset = (event: React.FormEvent<HTMLFormElement>) => {
 
     let myuuid = uuidv4();
-    setUuid(myuuid);
 
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const nAsset = { ...asset } as any;
-    nAsset.name = data.get("asset-name") || "Undefined";
-    nAsset.level = data.get("asset-level") || "Undefined";
-    nAsset.uuid = myuuid;
+    event.preventDefault(); //Cancela el evento si este es cancelable, sin detener el resto del funcionamiento del evento
 
-    console.log("INICIO uuid: " + myuuid);
+    const data = new FormData(event.currentTarget); //Recogemos la información del formulario
+    const nAsset = { ...asset } as any; //Creamos una instancia del activo
 
-    console.log("CREANDO ASSET");
+    nAsset.name = data.get("asset-name") || "Undefined";    //Guardamos el nombre del activo 
+    nAsset.level = data.get("asset-level") || "Undefined";  //Guardamos el nivel del activo
+    nAsset.uuid = myuuid;                                   //Guardamos el uuid del activo
 
-    setNewAsset(nAsset);
-
-    setIsSaving(true);
+    //Actualizamos estados
+    setUuid(myuuid);      //de uuid
+    setNewAsset(nAsset);  //de activo
+    setIsSaving(true);    //estamos guardando la información a la espera de escribir en el tag
 
   };
 
   const handleUpdateMessage = () => {
-    setIsSaving(false);
 
-    dispatch({ type: "ADD_ASSET", payload: newAsset });
 
-    setIsSaved(true);
-    console.log("ACTUA SOCCER");
+
+    dispatch({ type: "ADD_ASSET", payload: newAsset }); //Una vez leido el tag, enviamos la información a la base de datos
+
+    setIsSaving(false); //Ya no estamos esperando al tag
+    setIsSaved(true);   //Ya se ha guardado la información
+
   };
 
-  const findTag = () => {
-    setIsSaving(!isSaving);
-  }
-
-  const saveAsset = () => {
-
-    setIsSaving(true);
-
-    console.log("Guardando asset");
-
-    /*e.preventDefault();
-    writeFn(message);
-    setMessage('');*/
-  };
 
 
   return (
@@ -105,13 +91,7 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
               </div>}
           </div>
 
-
-
-
           {!isSaved && (!isSaving ? <Button variant="contained" type="submit">REGISTRAR ACTIVO</Button> : <Button variant="contained" color="warning" disabled>REGISTRAR ACTIVO</Button>)}
-
-
-
 
         </div>
         <div className="modal_background" />
