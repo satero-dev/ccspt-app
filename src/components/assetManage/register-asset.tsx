@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { useAppContext } from "../../middleware/context-provider";
 import { Button, TextField, Grid, Box } from "@mui/material";
 
-import Scan from "./Scan";
-import { pepo } from "./Scan";
-import RadarIcon from '@mui/icons-material/Radar';
+import Write from "./tag-write";
+
 import CloseIcon from '@mui/icons-material/Close';
+
 
 interface PopUpProps {
   onClose: () => void;
@@ -24,6 +24,7 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const [state, dispatch] = useAppContext();
   //Parámetros de control de escaneo
   const [isCreated, setIsCreated] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   //const [actions, setActions] = useState(null);
   //const { scan } = state;
   const { asset } = state;
@@ -33,10 +34,21 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const newAsset = { ...asset } as any;
-    newAsset.name = data.get("asset-name") || "PERICO";
-    newAsset.level = data.get("asset-level") || "PPP";
-    console.log("ASSET 1");
+    newAsset.name = data.get("asset-name") || "Undefined";
+    newAsset.level = data.get("asset-level") || "Undefined";
+
     dispatch({ type: "ADD_ASSET", payload: newAsset });
+  };
+
+  const saveAsset = () => {
+
+    setIsSaved(true);
+
+    console.log("Guardando asset");
+
+    /*e.preventDefault();
+    writeFn(message);
+    setMessage('');*/
   };
 
   return (
@@ -65,7 +77,8 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
               </div>}
           </div>
 
-          {!isCreated ? <Button variant="contained" type="submit">REGISTRAR</Button> : <Button variant="contained" color="warning">GRABAR EN TAG</Button>}
+          {(!isSaved && !isCreated) ? <Button variant="contained" type="submit">REGISTRAR</Button> : <Button variant="contained" color="warning" onClick={saveAsset}>GRABAR EN TAG</Button>}
+          {isSaved && <Write />}
 
 
         </div>

@@ -3,7 +3,7 @@ import { databaseHandler } from "../core/database/db-handler";
 import { Action } from "./actions";
 import { Events } from "./event-handler";
 import { buildingHandler } from "../core/building/building-handler";
-import Scan from "../components/assetManage/Scan";
+import Scan from "../components/assetManage/tag-scan";
 import { UpdateAssetWindow } from "../components/assetManage/update-asset";
 
 

@@ -4,15 +4,11 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useAppContext } from "../../middleware/context-provider";
 import "./asset-menu-style.css";
 
-let pepo = "A";
-
 const Scan = ({ onUpdateMessage }) => {
   //console.log("ESCANEANDO QUE ES GERUNDIO");
 
   const [message, setMessage] = useState("");
-  const [serialNumber, setSerialNumber] = useState("");
   const { actions, setActions } = useAppContext();
-  const [state, dispatch] = useAppContext();
 
   const scan = useCallback(async () => {
     //dispatch({ type: "SCAN_ASSET", payload: "VALOR POR DEFECTO" });
@@ -45,9 +41,7 @@ const Scan = ({ onUpdateMessage }) => {
     }
   }, [setActions]);
 
-  const onReading = ({ message, serialNumber }) => {
-    setSerialNumber(serialNumber);
-
+  const onReading = ({ message }) => {
     for (const record of message.records) {
       switch (record.recordType) {
         case "text":
@@ -63,7 +57,6 @@ const Scan = ({ onUpdateMessage }) => {
 
   useEffect(() => {
     scan();
-    pepo = message;
   }, [scan]);
 
   return (
@@ -78,7 +71,6 @@ const Scan = ({ onUpdateMessage }) => {
 };
 
 export default Scan;
-export { pepo };
 
 /*
 <>

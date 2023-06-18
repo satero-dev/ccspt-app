@@ -5,9 +5,7 @@ import { useState, useEffect } from 'react';
 import { useAppContext } from "../../middleware/context-provider";
 import { Button, TextField, Grid, Box } from "@mui/material";
 
-import Scan from "./Scan";
-import { pepo } from "./Scan";
-import RadarIcon from '@mui/icons-material/Radar';
+import Scan from "./tag-scan";
 import CloseIcon from '@mui/icons-material/Close';
 
 import { MapDataBase } from "../../core/map/map-database";
@@ -18,7 +16,6 @@ interface PopUpProps {
 
 export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
-  console.log("SCAN VALUE: " + pepo);
 
   const handleClose = () => {
     onClose();
@@ -53,9 +50,6 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const scanAsset = () => {
 
     setIsScanning(!isScanning);
-    console.log("Estamos escanenado");
-    //dispatch({ type: "OPEN_SCAN" });
-    //dispatch({ type: "SCAN_ASSET" });
 
   }
 
