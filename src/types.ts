@@ -59,5 +59,6 @@ export interface Asset {
   lat: number;
   lng: number;
   tipo: string;
+  level: string;
 }
 

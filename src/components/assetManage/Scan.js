@@ -17,9 +17,9 @@ const Scan = ({ onUpdateMessage }) => {
   const scan = useCallback(async () => {
     //dispatch({ type: "SCAN_ASSET", payload: "VALOR POR DEFECTO" });
 
-    /*const scannedMessage = "jGhHcSNMkfpattg4pGk2";
+    const scannedMessage = "jGhHcSNMkfpattg4pGk2";
     setMessage(scannedMessage);
-    onUpdateMessage(scannedMessage); // Llamada a la función onUpdateMessage del padre*/
+    onUpdateMessage(scannedMessage); // Llamada a la función onUpdateMessage del padre
 
     if ("NDEFReader" in window) {
       try {
@@ -53,7 +53,7 @@ const Scan = ({ onUpdateMessage }) => {
         case "text":
           const textDecoder = new TextDecoder(record.encoding);
           setMessage(textDecoder.decode(record.data));
-          onUpdateMessage(textDecoder.decode(record.data)); // Llamada a la función onUpdateMessage del padre
+          //onUpdateMessage(textDecoder.decode(record.data)); // Llamada a la función onUpdateMessage del padre
           break;
         default:
         // TODO: Handle other records with record data.

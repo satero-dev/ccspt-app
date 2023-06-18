@@ -132,6 +132,7 @@ export class MapScene {
 
     //console.log("INTENTOLO")
     console.log("ASSET 4: " + asset.name);
+    console.log("ASSET 4: " + asset.level);
 
     let longitud = 0;
     let latitud = 0;
@@ -140,19 +141,20 @@ export class MapScene {
 
       longitud = position.coords.longitude;
       latitud = position.coords.latitude;
-      this.datos(longitud, latitud, asset.name);
+      this.datos(longitud, latitud, asset.name, asset.level);
 
     });
 
   }
 
-  async datos(longitud: number, latitud: number, name: string) {
+  async datos(longitud: number, latitud: number, name: string, level: string) {
 
 
     const { lat, lng } = { lat: latitud, lng: longitud };
     const tipo = "Activo";
     console.log("NAME: " + name);
-    const asset = { uid: "", name, lat, lng, tipo };
+    console.log("LEVEL: " + level);
+    const asset = { uid: "", name, lat, lng, tipo, level };
     asset.name = await this.database.addAsset(asset);
     console.log("ASSET 5");
 
@@ -168,7 +170,7 @@ export class MapScene {
     for (const asset of assets) {
 
 
-      const { name, lng, lat } = asset;
+      const { name, lng, lat, level } = asset;
       const htmlElement = this.createHTMLElementAsset("🚩", asset);
       const label = new CSS2DObject(htmlElement);
 

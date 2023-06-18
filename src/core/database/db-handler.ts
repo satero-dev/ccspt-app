@@ -2,7 +2,7 @@ import { getApp } from "firebase/app";
 import { getAuth, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import { deleteDoc, doc, getFirestore, updateDoc } from "firebase/firestore";
 import { Events } from "../../middleware/event-handler";
-import { Building, Model } from "../../types";
+import { Building, Model, Asset } from "../../types";
 import { getStorage, ref, uploadBytes, deleteObject } from "firebase/storage";
 import { buildingHandler } from "../building/building-handler";
 import { Action } from "../../middleware/actions";
@@ -60,6 +60,18 @@ export const databaseHandler = {
     }
     await buildingHandler.deleteModels(ids);
     events.trigger({ type: "CLOSE_BUILDING" });
+  },
+
+  updateAsset: async (asset: Asset) => {
+
+    console.log("ASSET 3: " + asset.uid);
+
+    const dbInstance = getFirestore(getApp());
+    //console.log("CARGANDO BUILDINGS 3: " + building.uid);
+    await updateDoc(doc(dbInstance, "assets", asset.uid), {
+      ...asset,
+    });
+
   },
 
   updateBuilding: async (building: Building) => {

@@ -28,6 +28,7 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const [state, dispatch] = useAppContext();
   //Parámetros de control de escaneo
   const [isScanning, setIsScanning] = useState(false);
+  const [isScanned, setIsScanned] = useState(false);
 
   const [shouldFetchData, setShouldFetchData] = useState(false);
   //const [actions, setActions] = useState(null);
@@ -35,11 +36,16 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const { user, building, role, asset } = state;
 
   const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const [level, setLevel] = useState("");
 
   const handleUpdateMessage = (newMessage: any) => {
     setMessage(newMessage);
     console.log("Estamos handleUpdateMessage");
     setShouldFetchData(true);
+    setIsScanned(true);
 
   };
 
@@ -56,9 +62,12 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const newAsset = { ...asset } as any;
-    newAsset.name = data.get("asset-name") || "PERICO";
+    newAsset.name = data.get("asset-name");
+    newAsset.level = data.get("asset-level");
+    //newAsset.name = "PERICO";
+    newAsset.id = message;
     console.log("ASSET 1");
-    //dispatch({ type: "ADD_ASSET", payload: newAsset });
+    dispatch({ type: "UPDATE_ASSET", payload: newAsset });
 
   };
 
@@ -73,7 +82,10 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     const assetWithMessage = assetsDatabase.find(asset => asset.uid === message);
     if (assetWithMessage) {
       console.log("Asset encontrado:", assetWithMessage);
-      setMessage(assetWithMessage.name);
+      setName(assetWithMessage.name);
+      setLevel(assetWithMessage.level);
+      setLat(String(assetWithMessage.lat));
+      setLng(String(assetWithMessage.lng));
     } else {
       console.log("No se encontró el asset con el nombre:", message);
     }
@@ -107,6 +119,7 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
       <Box
         component="form"
+        onSubmit={updateAsset}
         sx={{
           '& .MuiTextField-root': { m: 1, width: '25ch' },
         }}
@@ -123,14 +136,18 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
             <>
               <div className="data_content">
                 {isScanning && <Scan onUpdateMessage={handleUpdateMessage} />}
-                <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" value={message} />
-                <TextField type="Usuario" id="asset-lvl" label="Planta" variant="standard" />
+                <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" value={name} onChange={(event) => setName(event.target.value)} />
+                <TextField type="Usuario" id="asset-level" label="Nivel" variant="standard" name="asset-level" value={level} onChange={(event) => setLevel(event.target.value)} />
+                <TextField type="Usuario" id="asset-lat" label="Latitud" variant="standard" name="asset-lat" value={lat} disabled />
+                <TextField type="Usuario" id="asset-lng" label="Longitud" variant="standard" name="asset-lng" value={lng} disabled />
+
 
               </div>
             </>
 
-            {!isScanning ? <Button variant="contained" onClick={scanAsset}>ESCANEAR TAG</Button> : <Button variant="contained" color="warning" disabled>ESCANEAR TAG</Button>}
+            {!isScanned && (!isScanning ? <Button variant="contained" onClick={scanAsset}>ESCANEAR TAG</Button> : <Button variant="contained" color="warning" disabled>ESCANEAR TAG</Button>)}
 
+            {isScanned && <Button variant="contained" type="submit">ACTUALIZAR ACTIVO</Button>}
 
 
           </div>

@@ -45,12 +45,13 @@ export class MapDataBase {
 
   async addAsset(asset: Asset) {
     const dbInstance = getFirestore(getApp());
-    const { tipo, lat, lng, name } = asset;
+    const { tipo, lat, lng, name, level } = asset;
     const result = await addDoc(collection(dbInstance, this.assets), {
       lat,
       lng,
       name,
       tipo,
+      level,
     });
     return result.id;
   }

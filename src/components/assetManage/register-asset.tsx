@@ -34,6 +34,7 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     const data = new FormData(event.currentTarget);
     const newAsset = { ...asset } as any;
     newAsset.name = data.get("asset-name") || "PERICO";
+    newAsset.level = data.get("asset-level") || "PPP";
     console.log("ASSET 1");
     dispatch({ type: "ADD_ASSET", payload: newAsset });
   };
@@ -56,7 +57,7 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
           <h3>Registrar nuevo activo</h3>
           <div className="data_content">
             <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" />
-            <TextField type="Usuario" id="asset-lvl" label="Planta" variant="standard" />
+            <TextField type="Usuario" id="asset-level" label="Planta" variant="standard" name="asset-level" />
             {isCreated &&
               <div className="data_message">
                 <small>Activo registrado en la base de datos. </small>

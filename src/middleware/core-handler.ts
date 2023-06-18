@@ -28,8 +28,6 @@ export const executeCore = async (action: Action, events: Events) => {
     return mapHandler.addBuilding(action.payload);
   }
   if (action.type === "ADD_ASSET") {
-    const { name } = action.payload;
-    console.log("ASSET 2:" + name);
     return mapHandler.addAsset(action.payload);
   }
   if (action.type === "DELETE_BUILDING") {
@@ -68,17 +66,9 @@ export const executeCore = async (action: Action, events: Events) => {
     return buildingHandler.toggleFloorplan(active, floorplan);
   }
 
-  if (action.type === "OPEN_SCAN") {
-
-    console.log("ABRIENDO SCAN");
-
-  }
-
-  if (action.type === "SCAN_ASSET") {
-
-    console.log("OJO CUIDADO: " + action.payload);
-    //return UpdateAssetWindow();
-
+  if (action.type === "UPDATE_ASSET") {
+    console.log("ASSET 2");
+    return databaseHandler.updateAsset(action.payload);
   }
 
   /*if (action.type === "SCAN_ASSET") {
