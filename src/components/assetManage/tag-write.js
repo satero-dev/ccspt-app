@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 
-import { useAppContext } from "../../middleware/context-provider";
-
 const Write = () => {
   console.log("ESCRIBIENDO EN EL TAG");
-
-  const { actions } = useAppContext();
 
   const onWrite = async (message) => {
     console.log("ESCRIBIENDO EN onWrite");
@@ -18,6 +14,7 @@ const Write = () => {
         await ndef.write({ records: [{ recordType: "text", data: message }] });
         alert(`Value Saved!`);
       } catch (error) {
+        alert(`Error!`);
         console.log(`Error! Scan failed to start: ${error}.`);
       }
     }
