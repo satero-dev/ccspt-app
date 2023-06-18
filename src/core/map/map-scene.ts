@@ -9,7 +9,6 @@ import { Events } from "../../middleware/event-handler";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { getApp } from "firebase/app";
 
-import { v4 as uuidv4 } from "uuid";
 
 export class MapScene {
   private components = new OBC.Components();
@@ -60,7 +59,7 @@ export class MapScene {
 
   async getAllAssets() {
 
-    console.log("ADDUSERLOCATION");
+    //console.log("ADDUSERLOCATION");
 
     const assets = await this.database.getAssets();
 
@@ -149,7 +148,6 @@ export class MapScene {
 
   async addAsset(newAsset: Asset) {
 
-
     const getCurrentPosition = () => {
       return new Promise<GeolocationPosition>((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -172,9 +170,10 @@ export class MapScene {
         level: newAsset.level,
       };
 
-      await this.database.addAsset(asset);
-
+      const uid = await this.database.addAsset(asset);
+      console.log("PEPE UID: " + uid);
       this.addAssetToScene([asset]);
+      return uid;
     } catch (error) {
       console.log("Error al obtener la posición: ", error);
     }

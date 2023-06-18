@@ -3,9 +3,7 @@ import { databaseHandler } from "../core/database/db-handler";
 import { Action } from "./actions";
 import { Events } from "./event-handler";
 import { buildingHandler } from "../core/building/building-handler";
-import Scan from "../components/assetManage/tag-scan";
-import { UpdateAssetWindow } from "../components/assetManage/update-asset";
-
+import RegisterAssetWindow from "../components/assetManage/register-asset";
 
 
 export const executeCore = async (action: Action, events: Events) => {
@@ -27,9 +25,7 @@ export const executeCore = async (action: Action, events: Events) => {
   if (action.type === "ADD_BUILDING") {
     return mapHandler.addBuilding(action.payload);
   }
-  if (action.type === "ADD_ASSET") {
-    return mapHandler.addAsset(action.payload);
-  }
+
   if (action.type === "DELETE_BUILDING") {
     return databaseHandler.deleteBuilding(action.payload, events);
   }
@@ -66,10 +62,16 @@ export const executeCore = async (action: Action, events: Events) => {
     return buildingHandler.toggleFloorplan(active, floorplan);
   }
 
+  if (action.type === "ADD_ASSET") {
+    const act = mapHandler.addAsset(action.payload)
+    console.log("ACT: " + act);
+    return act;
+  }
+
   if (action.type === "UPDATE_ASSET") {
-    console.log("ASSET 2");
     return mapHandler.updateAsset(action.payload);
   }
+
 
   /*if (action.type === "SCAN_ASSET") {
     return (

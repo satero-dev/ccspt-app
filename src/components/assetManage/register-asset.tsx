@@ -26,25 +26,42 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const [isCreated, setIsCreated] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+
+  const [newAsset, setNewAsset] = useState(null);
   //const [actions, setActions] = useState(null);
   //const { scan } = state;
   const { asset } = state;
 
-  const addAsset = (event: React.FormEvent<HTMLFormElement>) => {
-    setIsCreated(!isCreated);
+  const createAsset = (event: React.FormEvent<HTMLFormElement>) => {
+
+    setIsSaving(true);
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const newAsset = { ...asset } as any;
-    newAsset.name = data.get("asset-name") || "Undefined";
-    newAsset.level = data.get("asset-level") || "Undefined";
+    const nAsset = { ...asset } as any;
+    nAsset.name = data.get("asset-name") || "Undefined";
+    nAsset.level = data.get("asset-level") || "Undefined";
 
-    //dispatch({ type: "ADD_ASSET", payload: newAsset });
+    console.log("CREANDO ASSET");
+
+    setNewAsset(nAsset);
+
+
+
   };
 
-  const handleUpdateMessage = (newMessage: any) => {
+  const handleUpdateMessage = () => {
     setIsSaving(false);
+
+    dispatch({ type: "ADD_ASSET", payload: newAsset });
+
     setIsSaved(true);
+    console.log("ACTUA SOCCER");
   };
+
+  const findTag = () => {
+    setIsSaving(!isSaving);
+  }
 
   const saveAsset = () => {
 
@@ -57,10 +74,11 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     setMessage('');*/
   };
 
+
   return (
 
     <Box
-      component="form" onSubmit={addAsset}
+      component="form" onSubmit={createAsset}
       sx={{
         '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
@@ -77,20 +95,17 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
           <div className="data_content">
             <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" />
             <TextField type="Usuario" id="asset-level" label="Planta" variant="standard" name="asset-level" />
-            {isCreated && !isSaved &&
-              <div className="data_message">
-                <small>Activo registrado en la base de datos. </small>
-                <small>Escanea el tag para asociarlo al activo.</small>
-              </div>}
             {isSaved &&
               <div className="data_message">
                 <small>Activo registrado en la base de datos. </small>
-                <small>Escanea el tag para asociarlo al activo.</small>
+                <small>Tag grabado correctamente.</small>
               </div>}
           </div>
 
-          {!isCreated && <Button variant="contained" type="submit">REGISTRAR</Button>}
-          {isCreated && !isSaved && (!isSaving ? <Button variant="contained" color="warning" onClick={saveAsset}>GRABAR EN TAG</Button> : <Button variant="contained" color="warning" disabled>GRABANDO EN TAG</Button>)}
+
+          {!isSaved && (!isSaving ? <Button variant="contained" type="submit">REGISTRAR ACTIVO</Button> : <Button variant="contained" color="warning" disabled>REGISTRAR ACTIVO</Button>)}
+
+
 
 
         </div>
@@ -101,3 +116,5 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 };
 
 export default RegisterAssetWindow;
+
+//{isCreated && !isSaved && (!isSaving ? <Button variant="contained" color="warning" onClick={saveAsset}>GRABAR EN TAG</Button> : <Button variant="contained" color="warning" disabled>GRABANDO EN TAG</Button>)}
