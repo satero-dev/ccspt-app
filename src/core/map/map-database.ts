@@ -22,7 +22,7 @@ export class MapDataBase {
     const dbInstance = getFirestore(getApp());
     const q = query(
       collection(dbInstance, this.buildings)//,
-      //where("userID", "==", user.uuid)
+      //where("userID", "==", user.uid)
     );
 
 
@@ -64,7 +64,7 @@ export class MapDataBase {
     const dbInstance = getFirestore(getApp());
     const q = query(
       collection(dbInstance, this.assets)
-      //where("userID", "==", user.uuid)
+      //where("userID", "==", user.uid)
     );
 
     return new Promise<Asset[]>((resolve) => {

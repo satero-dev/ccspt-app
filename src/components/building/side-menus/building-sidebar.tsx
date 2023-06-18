@@ -50,7 +50,7 @@ export const BuildingSidebar: FC<{
                   >
                     {tool.icon}
                   </ListItemIcon>
-                  <ListItemText primary={tool.name} sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText primary={tool.name} sx={{ opacity: open ? 1 : 0, width: 0 }} />
                 </ListItemButton>
               </ListItem>
             );

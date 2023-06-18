@@ -149,8 +149,6 @@ export class MapScene {
   async addAsset(newAsset: Asset) {
 
 
-    console.log("PEPE uuid: " + newAsset.uuid);
-
     const getCurrentPosition = () => {
       return new Promise<GeolocationPosition>((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);

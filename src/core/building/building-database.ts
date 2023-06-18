@@ -71,8 +71,15 @@ export class BuildingDatabase {
   }
 
   private async getModelFromLocalCache(id: string) {
+
     const found = await this.db.models.where("id").equals(id).toArray();
     const file = found[0].file;
+
+    console.log("id: " + id);
+    console.log("FILE: " + JSON.stringify(file));
+    console.log("found: " + JSON.stringify(found));
+    //console.log("props: " + JSON.stringify(this.properties));
+
     //console.log("Got model from local cache!");
     return URL.createObjectURL(file);
   }
