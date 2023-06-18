@@ -68,7 +68,7 @@ export const executeCore = async (action: Action, events: Events) => {
 
   if (action.type === "UPDATE_ASSET") {
     console.log("ASSET 2");
-    return databaseHandler.updateAsset(action.payload);
+    return mapHandler.updateAsset(action.payload);
   }
 
   /*if (action.type === "SCAN_ASSET") {

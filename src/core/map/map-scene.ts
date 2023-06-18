@@ -6,6 +6,8 @@ import { GisParameters, Building, LngLat, Asset } from "../../types";
 import { User } from "firebase/auth";
 import { MapDataBase } from "./map-database";
 import { Events } from "../../middleware/event-handler";
+import { doc, getFirestore, updateDoc } from "firebase/firestore";
+import { getApp } from "firebase/app";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -26,6 +28,7 @@ export class MapScene {
 
 
   constructor(container: HTMLDivElement, events: Events) {
+
     this.events = events;
     const config = this.getConfig(container);
     //const [isCreatingBuilding, setIsCreatingBuilding] = useState(false);
@@ -128,7 +131,7 @@ export class MapScene {
 
 
 
-  async addAsset(asset: Asset) {
+  /*async addAsset(asset: Asset) {
 
     let longitud = 0;
     let latitud = 0;
@@ -137,27 +140,82 @@ export class MapScene {
 
       longitud = position.coords.longitude;
       latitud = position.coords.latitude;
+
       this.datos(longitud, latitud, asset.name, asset.level);
 
     });
 
+  }*/
+
+  async addAsset(newAsset: Asset) {
+
+
+    const getCurrentPosition = () => {
+      return new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+    };
+
+    try {
+
+      const position = await getCurrentPosition();
+
+      let longitud = position.coords.longitude;
+      let latitud = position.coords.latitude;
+
+      const asset = {
+        uid: newAsset.uid,
+        name: newAsset.name,
+        lat: latitud,
+        lng: longitud,
+        tipo: "Activo",
+        level: newAsset.level,
+      };
+
+      await this.database.addAsset(asset);
+
+      this.addAssetToScene([asset]);
+    } catch (error) {
+      console.log("Error al obtener la posición: ", error);
+    }
   }
 
-  async datos(longitud: number, latitud: number, name: string, level: string) {
+  async updateAsset(updatedAsset: Asset) {
 
+    const dbInstance = getFirestore(getApp());
 
-    const { lat, lng } = { lat: latitud, lng: longitud };
-    const tipo = "Activo";
-    console.log("NAME: " + name);
-    console.log("LEVEL: " + level);
-    const asset = { uid: "", name, lat, lng, tipo, level };
-    asset.name = await this.database.addAsset(asset);
-    console.log("ASSET 5");
+    const getCurrentPosition = () => {
+      return new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+    };
 
-    this.addAssetToScene([asset]);
+    try {
 
+      const position = await getCurrentPosition();
 
+      let longitud = position.coords.longitude;
+      let latitud = position.coords.latitude;
+
+      const asset = {
+        uid: updatedAsset.uid,
+        name: updatedAsset.name,
+        lat: latitud,
+        lng: longitud,
+        tipo: "Activo",
+        level: updatedAsset.level,
+      };
+
+      await updateDoc(doc(dbInstance, "assets", updatedAsset.uid), {
+        ...asset,
+      });
+
+      this.addAssetToScene([asset]);
+    } catch (error) {
+      console.log("Error al obtener la posición: ", error);
+    }
   }
+
 
   private addAssetToScene(assets: Asset[]) {
 

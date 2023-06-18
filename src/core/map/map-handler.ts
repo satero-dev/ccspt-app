@@ -26,6 +26,14 @@ export const mapHandler = {
     }
   },
 
+  updateAsset(asset: Asset) {
+
+    if (this.viewer) {
+      //console.log("map-handler scan");
+      this.viewer.updateAsset(asset);
+    }
+  },
+
   gotoAsset(asset: Asset) {
     if (this.viewer) {
       ////console.log("map-handler scan");

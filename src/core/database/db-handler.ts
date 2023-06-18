@@ -62,7 +62,7 @@ export const databaseHandler = {
     events.trigger({ type: "CLOSE_BUILDING" });
   },
 
-  updateAsset: async (asset: Asset) => {
+  /*updateAsset: async (asset: Asset) => {
 
     console.log("ASSET 3: " + asset.uid);
 
@@ -85,7 +85,7 @@ export const databaseHandler = {
       ...asset,
     });
 
-  },
+  },*/
 
   updateBuilding: async (building: Building) => {
 
