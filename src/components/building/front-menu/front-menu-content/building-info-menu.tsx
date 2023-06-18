@@ -34,7 +34,7 @@ export const BuildingInfoMenu: FC<{
           label="ID de Edificio"
           name="building-id"
           autoComplete="building-id"
-          value={building.uid}
+          value={building.uuid}
           disabled={true}
         />
       </div>

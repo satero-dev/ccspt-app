@@ -50,6 +50,9 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const scanAsset = () => {
 
     setIsScanning(!isScanning);
+    console.log("Estamos escanenado");
+    //dispatch({ type: "OPEN_SCAN" });
+    //dispatch({ type: "SCAN_ASSET" });
 
   }
 
@@ -60,7 +63,7 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     newAsset.name = data.get("asset-name");
     newAsset.level = data.get("asset-level");
     //newAsset.name = "PERICO";
-    newAsset.uid = message;
+    newAsset.uuid = message;
     console.log("ASSET 1: " + message);
     setIsUpdated(true);
     dispatch({ type: "UPDATE_ASSET", payload: newAsset });
@@ -73,9 +76,8 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
     const assetsDatabase = await allDatabases[0];
 
-    console.log("DATABASE ASSETS: " + assetsDatabase[0].uid);
 
-    const assetWithMessage = assetsDatabase.find(asset => asset.uid === message);
+    const assetWithMessage = assetsDatabase.find(asset => asset.uuid === message);
     if (assetWithMessage) {
       console.log("Asset encontrado:", assetWithMessage);
       setName(assetWithMessage.name);

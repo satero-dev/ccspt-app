@@ -1,13 +1,13 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 
-const Write = ({ onUpdateMessage }) => {
-  console.log("ESCRIBIENDO EN EL TAG: " + onUpdateMessage);
+const Write = ({ onUpdateMessage, uuid }) => {
+  console.log("ESCRIBIENDO EN EL TAG: " + uuid);
   const [message, setMessage] = useState("");
 
-  const onWrite = async (message) => {
-    message = "MENSAJE";
+  const onWrite = async () => {
+    //message = "MENSAJE";
 
-    console.log("ESCRIBIENDO EN onWrite: " + message);
+    console.log("ESCRIBIENDO EN onWrite: " + uuid);
 
     /*const scannedMessage = "jGhHcSNMkfpattg4pGk2";
     setMessage(scannedMessage);
@@ -34,7 +34,7 @@ const Write = ({ onUpdateMessage }) => {
 
   return (
     <>
-      <div className="UUID">BUSCANDO TAG...</div>
+      <div className="uuid">BUSCANDO TAG...</div>
     </>
   );
 };

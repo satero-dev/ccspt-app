@@ -16,7 +16,7 @@ export const SearchMenu = ({ datos }: any) => {
     const filterOptions = (datos: any, state: { inputValue: string }) => {
         const filteredOptions = datos.filter((data: any) => {
 
-            const optionLabel = data.name.toLowerCase() + data.uid.toLowerCase();
+            const optionLabel = data.name.toLowerCase() + data.uuid.toLowerCase();
             const removeAccentsOL = optionLabel.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             const inputText = state.inputValue.toLowerCase();
             const removeAccentsIT = inputText.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -55,7 +55,7 @@ export const SearchMenu = ({ datos }: any) => {
                             alt=""
                         />
                         <div className="options">{data.name}
-                            <div className="sub-options">{data.uid}</div>
+                            <div className="sub-options">{data.uuid}</div>
                         </div>
 
                     </Box>

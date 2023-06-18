@@ -1,6 +1,6 @@
 import { getApp } from "firebase/app";
 import { User } from "firebase/auth";
-import { addDoc, collection, getFirestore, onSnapshot, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getFirestore, onSnapshot, query, setDoc, where } from "firebase/firestore";
 import { Asset, Building } from "../../types";
 
 export class MapDataBase {
@@ -22,7 +22,7 @@ export class MapDataBase {
     const dbInstance = getFirestore(getApp());
     const q = query(
       collection(dbInstance, this.buildings)//,
-      //where("userID", "==", user.uid)
+      //where("userID", "==", user.uuid)
     );
 
 
@@ -32,7 +32,7 @@ export class MapDataBase {
         const result: Building[] = [];
 
         snapshot.docs.forEach((doc) => {
-          result.push({ ...(doc.data() as Building), uid: doc.id });
+          result.push({ ...(doc.data() as Building), uuid: doc.id });
 
         });
         unsubscribe();
@@ -45,15 +45,18 @@ export class MapDataBase {
 
   async addAsset(asset: Asset) {
     const dbInstance = getFirestore(getApp());
-    const { tipo, lat, lng, name, level } = asset;
-    const result = await addDoc(collection(dbInstance, this.assets), {
+    const { tipo, lat, lng, name, level, uuid } = asset;
+    const docRef = doc(collection(dbInstance, this.assets), uuid);
+
+    await setDoc(docRef, {
       lat,
       lng,
       name,
       tipo,
       level,
     });
-    return result.id;
+
+    return uuid;
   }
 
   async getAssets() {
@@ -61,14 +64,14 @@ export class MapDataBase {
     const dbInstance = getFirestore(getApp());
     const q = query(
       collection(dbInstance, this.assets)
-      //where("userID", "==", user.uid)
+      //where("userID", "==", user.uuid)
     );
 
     return new Promise<Asset[]>((resolve) => {
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const result: Asset[] = [];
         snapshot.docs.forEach((doc) => {
-          result.push({ ...(doc.data() as Asset), uid: doc.id });
+          result.push({ ...(doc.data() as Asset), uuid: doc.id });
         });
         unsubscribe();
         resolve(result);

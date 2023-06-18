@@ -138,7 +138,7 @@ export const MapViewer: FC = () => {
   //console.log("USER: " + user);
 
   if (building) {
-    const url = `/building/?id=${building.uid}`;
+    const url = `/building/?id=${building.uuid}`;
     return <Navigate to={url} />;
   }
 

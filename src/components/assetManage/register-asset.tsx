@@ -8,6 +8,7 @@ import { Button, TextField, Grid, Box } from "@mui/material";
 import Write from "./tag-write";
 
 import CloseIcon from '@mui/icons-material/Close';
+import { v4 as uuidv4 } from 'uuid';
 
 
 interface PopUpProps {
@@ -28,25 +29,31 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const [isSaved, setIsSaved] = useState(false);
 
   const [newAsset, setNewAsset] = useState(null);
+  const [uuid, setUuid] = useState("");
   //const [actions, setActions] = useState(null);
   //const { scan } = state;
   const { asset } = state;
+  let myuuid = "";
 
   const createAsset = (event: React.FormEvent<HTMLFormElement>) => {
 
-    setIsSaving(true);
+    myuuid = uuidv4();
+    setUuid(myuuid);
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const nAsset = { ...asset } as any;
     nAsset.name = data.get("asset-name") || "Undefined";
     nAsset.level = data.get("asset-level") || "Undefined";
+    nAsset.uuid = myuuid;
+
+    console.log("INICIO uuid: " + myuuid);
 
     console.log("CREANDO ASSET");
 
     setNewAsset(nAsset);
 
-
+    setIsSaving(true);
 
   };
 
@@ -91,7 +98,7 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
             <CloseIcon />
           </div>
           <h3>Registrar nuevo activo</h3>
-          {isSaving && <Write onUpdateMessage={handleUpdateMessage} />}
+          {isSaving && <Write onUpdateMessage={handleUpdateMessage} uuid={uuid} />}
           <div className="data_content">
             <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" />
             <TextField type="Usuario" id="asset-level" label="Planta" variant="standard" name="asset-level" />

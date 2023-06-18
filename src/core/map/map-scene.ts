@@ -148,6 +148,9 @@ export class MapScene {
 
   async addAsset(newAsset: Asset) {
 
+
+    console.log("PEPE uuid: " + newAsset.uuid);
+
     const getCurrentPosition = () => {
       return new Promise<GeolocationPosition>((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -162,7 +165,7 @@ export class MapScene {
       let latitud = position.coords.latitude;
 
       const asset = {
-        uid: newAsset.uid,
+        uuid: newAsset.uuid,
         name: newAsset.name,
         lat: latitud,
         lng: longitud,
@@ -170,10 +173,10 @@ export class MapScene {
         level: newAsset.level,
       };
 
-      const uid = await this.database.addAsset(asset);
-      console.log("PEPE UID: " + uid);
+      const uuid = await this.database.addAsset(asset);
+      console.log("PEPE uuid: " + uuid);
       this.addAssetToScene([asset]);
-      return uid;
+
     } catch (error) {
       console.log("Error al obtener la posición: ", error);
     }
@@ -197,7 +200,8 @@ export class MapScene {
       let latitud = position.coords.latitude;
 
       const asset = {
-        uid: updatedAsset.uid,
+
+        uuid: updatedAsset.uuid,
         name: updatedAsset.name,
         lat: latitud,
         lng: longitud,
@@ -205,7 +209,7 @@ export class MapScene {
         level: updatedAsset.level,
       };
 
-      await updateDoc(doc(dbInstance, "assets", updatedAsset.uid), {
+      await updateDoc(doc(dbInstance, "assets", updatedAsset.uuid), {
         ...asset,
       });
 
@@ -277,10 +281,10 @@ export class MapScene {
     const tipo = "Edificio";
     const userID = user.uid;
 
-    const building = { name: "", userID, lat, lng, uid: "", tipo, models: [] };
+    const building = { name: "", userID, lat, lng, uuid: "", tipo, models: [] };
 
 
-    building.uid = await this.database.addBuilding(building);
+    building.uuid = await this.database.addBuilding(building);
     this.addBuildingToScene([building]);
   }
 

@@ -16,7 +16,7 @@ export interface Model {
 export interface Building {
   /*autoID: string;*/
   name: string;
-  uid: string;
+  uuid: string;
   userID: string;
   lat: number;
   lng: number;
@@ -54,7 +54,7 @@ export interface System {
 
 //Asset puede ser cualquier tipo de activo
 export interface Asset {
-  uid: string;
+  uuid: string;
   name: string;
   lat: number;
   lng: number;

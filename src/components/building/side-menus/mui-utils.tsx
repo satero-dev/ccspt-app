@@ -1,6 +1,6 @@
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { CSSObject, styled, Theme } from "@mui/material/styles";
-import MuiDrawer from "@mui/material/Drawer";
+import Muuidrawer from "@mui/material/Drawer";
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -59,7 +59,7 @@ export function getDrawerHeader() {
 }
 
 export function getDrawer(width: number) {
-  return styled(MuiDrawer, {
+  return styled(Muuidrawer, {
     shouldForwardProp: (prop) => prop !== "open",
   })(({ theme, open }) => ({
     width: width,
@@ -68,11 +68,11 @@ export function getDrawer(width: number) {
     boxSizing: "border-box",
     ...(open && {
       ...openedMixin(theme, width),
-      "& .MuiDrawer-paper": openedMixin(theme, width),
+      "& .Muuidrawer-paper": openedMixin(theme, width),
     }),
     ...(!open && {
       ...closedMixin(theme),
-      "& .MuiDrawer-paper": closedMixin(theme),
+      "& .Muuidrawer-paper": closedMixin(theme),
     }),
   }));
 }

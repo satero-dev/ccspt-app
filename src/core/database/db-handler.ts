@@ -47,7 +47,7 @@ export const databaseHandler = {
   },
 
   deleteBuilding: async (building: Building, events: Events) => {
-    const id = building.uid;
+    const id = building.uuid;
     const dbInstance = getFirestore(getApp());
     await deleteDoc(doc(dbInstance, "buildings", id));
     const appInstance = getApp();
@@ -64,7 +64,7 @@ export const databaseHandler = {
 
   /*updateAsset: async (asset: Asset) => {
 
-    console.log("ASSET 3: " + asset.uid);
+    console.log("ASSET 3: " + asset.uuid);
 
     let longitud = 0;
     let latitud = 0;
@@ -80,8 +80,8 @@ export const databaseHandler = {
     console.log("position.coords.longitude: " + asset.lng);
     asset.level = "PT2";
     const dbInstance = getFirestore(getApp());
-    //console.log("CARGANDO BUILDINGS 3: " + building.uid);
-    await updateDoc(doc(dbInstance, "assets", asset.uid), {
+    //console.log("CARGANDO BUILDINGS 3: " + building.uuid);
+    await updateDoc(doc(dbInstance, "assets", asset.uuid), {
       ...asset,
     });
 
@@ -90,8 +90,8 @@ export const databaseHandler = {
   updateBuilding: async (building: Building) => {
 
     const dbInstance = getFirestore(getApp());
-    //console.log("CARGANDO BUILDINGS 3: " + building.uid);
-    await updateDoc(doc(dbInstance, "buildings", building.uid), {
+    //console.log("CARGANDO BUILDINGS 3: " + building.uuid);
+    await updateDoc(doc(dbInstance, "buildings", building.uuid), {
       ...building,
     });
 

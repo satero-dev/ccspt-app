@@ -62,9 +62,9 @@ const Scan = ({ onUpdateMessage }) => {
   return (
     <>
       {message ? (
-        <div className="UUID"></div>
+        <div className="uuid"></div>
       ) : (
-        <div className="UUID">BUSCANDO TAG...</div>
+        <div className="uuid">BUSCANDO TAG...</div>
       )}
     </>
   );
