@@ -32,17 +32,17 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
   const createAsset = (event: React.FormEvent<HTMLFormElement>) => {
 
-    //let myuuid = uuidv4();
-    setUuid(uuidv4());
+    let myuuid = uuidv4();
+    setUuid(myuuid);
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const nAsset = { ...asset } as any;
     nAsset.name = data.get("asset-name") || "Undefined";
     nAsset.level = data.get("asset-level") || "Undefined";
-    nAsset.uuid = uuid;
+    nAsset.uuid = myuuid;
 
-    console.log("INICIO uuid: " + uuid);
+    console.log("INICIO uuid: " + myuuid);
 
     console.log("CREANDO ASSET");
 
