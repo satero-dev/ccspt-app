@@ -519,6 +519,9 @@ export class BuildingScene {
   private async loadAllModels(building: Building) {
 
     const buildingsURLs = await this.database.getModels(building);
+
+    console.log("buildingsURLs: " + JSON.stringify(buildingsURLs));
+
     let modelType: String;
 
     for (const model of buildingsURLs) {

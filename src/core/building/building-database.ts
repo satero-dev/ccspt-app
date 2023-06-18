@@ -24,6 +24,9 @@ export class BuildingDatabase {
     const urls: { id: string; url: string }[] = [];
     for (const model of building.models) {
       const url = await this.getModelURL(instance, model.id);
+
+      console.log("buildingsURLs: " + JSON.stringify(url));
+
       const id = model.id;
       urls.push({ url, id });
     }
@@ -55,18 +58,31 @@ export class BuildingDatabase {
   }
 
   private async getModelURL(instance: FirebaseStorage, id: string) {
-    if (this.isModelCached(id)) {
+
+
+    return this.getModelFromFirebase(instance, id);
+
+    /*if (this.isModelCached(id)) {
       return this.getModelFromLocalCache(id);
     } else {
       return this.getModelFromFirebase(instance, id);
-    }
+    }*/
   }
 
   private async getModelFromFirebase(instance: FirebaseStorage, id: string) {
+
+    console.log("Got model from firebase!");
     const fileRef = ref(instance, id);
+    console.log("fileRef!: " + fileRef);
+    console.log("id!: " + id);
     const url = await getDownloadURL(fileRef);
-    await this.cacheModel(id, url);
-    //console.log("Got model from firebase!");
+
+    console.log("url!: " + url);
+
+    //await this.cacheModel(id, url);
+
+    //let url = "";
+
     return url;
   }
 
