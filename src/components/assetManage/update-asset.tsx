@@ -28,6 +28,8 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const [state, dispatch] = useAppContext();
   //Parámetros de control de escaneo
   const [isScanning, setIsScanning] = useState(false);
+
+  const [shouldFetchData, setShouldFetchData] = useState(false);
   //const [actions, setActions] = useState(null);
   //const { scan } = state;
   const { user, building, role, asset } = state;
@@ -36,11 +38,10 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
   const handleUpdateMessage = (newMessage: any) => {
     setMessage(newMessage);
-  };
+    console.log("Estamos handleUpdateMessage");
+    setShouldFetchData(true);
 
-  const actualizaForm = () => {
-    console.log("ACTUALIZA FORMULARIO");
-  }
+  };
 
   const scanAsset = () => {
 
@@ -61,30 +62,36 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
   };
 
-  useEffect(() => {
-
-    //Lectura de base de datos
+  const fetchData = async () => {
     let database = new MapDataBase();
+    const allDatabases = await Promise.all([database.getAssets()])
 
-    const fetchData = async () => {
+    const assetsDatabase = await allDatabases[0];
 
-      const allDatabases = await Promise.all([database.getAssets()])
+    console.log("DATABASE ASSETS: " + assetsDatabase[0].uid);
 
-      const assetsDatabase = await allDatabases[0];
+    const assetWithMessage = assetsDatabase.find(asset => asset.uid === message);
+    if (assetWithMessage) {
+      console.log("Asset encontrado:", assetWithMessage);
+      setMessage(assetWithMessage.name);
+    } else {
+      console.log("No se encontró el asset con el nombre:", message);
+    }
 
-      console.log("DATABASE ASSETS: " + assetsDatabase[0].name);
+    //Unimos arrays de diferentes objetos
+    //Array.prototype.push.apply(buildingsDatabase, assetsDatabase);
 
-      //Unimos arrays de diferentes objetos
-      //Array.prototype.push.apply(buildingsDatabase, assetsDatabase);
+    //assetsDatabase.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) //Función inline de Marco Demaio
 
-      //assetsDatabase.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) //Función inline de Marco Demaio
+    //setDatos(buildingsDatabase);
+  };
 
-      //setDatos(buildingsDatabase);
-    };
-    fetchData();
-
-
-  }, []);
+  useEffect(() => {
+    if (shouldFetchData) {
+      fetchData();
+      setShouldFetchData(false);
+    }
+  }, [shouldFetchData]);
 
 
 
