@@ -52,16 +52,12 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 
   const handleUpdateMessage = () => {
 
-
-
     dispatch({ type: "ADD_ASSET", payload: newAsset }); //Una vez leido el tag, enviamos la información a la base de datos
 
     setIsSaving(false); //Ya no estamos esperando al tag
     setIsSaved(true);   //Ya se ha guardado la información
 
   };
-
-
 
   return (
 
@@ -101,5 +97,3 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
 };
 
 export default RegisterAssetWindow;
-
-//{isCreated && !isSaved && (!isSaving ? <Button variant="contained" color="warning" onClick={saveAsset}>GRABAR EN TAG</Button> : <Button variant="contained" color="warning" disabled>GRABANDO EN TAG</Button>)}
