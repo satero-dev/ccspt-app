@@ -65,7 +65,7 @@ export const UpdateAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     newAsset.name = data.get("asset-name");
     newAsset.level = data.get("asset-level");
     //newAsset.name = "PERICO";
-    newAsset.id = message;
+    newAsset.uid = message;
     console.log("ASSET 1");
     dispatch({ type: "UPDATE_ASSET", payload: newAsset });
 
