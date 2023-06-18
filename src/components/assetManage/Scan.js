@@ -17,9 +17,9 @@ const Scan = ({ onUpdateMessage }) => {
   const scan = useCallback(async () => {
     //dispatch({ type: "SCAN_ASSET", payload: "VALOR POR DEFECTO" });
 
-    const scannedMessage = "jGhHcSNMkfpattg4pGk2";
+    /*const scannedMessage = "jGhHcSNMkfpattg4pGk2";
     setMessage(scannedMessage);
-    onUpdateMessage(scannedMessage); // Llamada a la función onUpdateMessage del padre
+    onUpdateMessage(scannedMessage); // Llamada a la función onUpdateMessage del padre*/
 
     if ("NDEFReader" in window) {
       try {
@@ -59,8 +59,7 @@ const Scan = ({ onUpdateMessage }) => {
       }
     }
 
-    /*setMessage(message);
-    onUpdateMessage(message); // Llamada a la función onUpdateMessage del padre*/
+    onUpdateMessage(message); // Llamada a la función onUpdateMessage del padre
   };
 
   useEffect(() => {
