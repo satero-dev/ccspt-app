@@ -19,7 +19,6 @@ const Write = ({ onUpdateMessage, uuid }) => {
         await ndef.scan();
         await ndef.write({ records: [{ recordType: "text", data: uuid }] });
         onUpdateMessage();
-        alert(`Value Saved!`);
       } catch (error) {
         alert(`Error!`);
         console.log(`Error! Scan failed to start: ${error}.`);

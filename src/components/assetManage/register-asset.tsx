@@ -1,15 +1,13 @@
-import React from "react";
-import "./asset-menu-style.css";
-import { useState } from 'react';
+import React, { useState } from "react";
 
 import { useAppContext } from "../../middleware/context-provider";
-import { Button, TextField, Grid, Box } from "@mui/material";
-
+import { v4 as uuidv4 } from 'uuid';
 import Write from "./tag-write";
 
-import CloseIcon from '@mui/icons-material/Close';
-import { v4 as uuidv4 } from 'uuid';
-
+//Interfaz
+import CloseIcon from '@mui/icons-material/Close';  //Iconos 
+import { Button, TextField, Box } from "@mui/material"; //Elementos UI
+import "./asset-menu-style.css";  //CSS
 
 interface PopUpProps {
   onClose: () => void;
@@ -23,31 +21,28 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   };
 
   const [state, dispatch] = useAppContext();
-  //Parámetros de control de escaneo
-  const [isCreated, setIsCreated] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
 
-  const [newAsset, setNewAsset] = useState(null);
-  const [uuid, setUuid] = useState("");
-  //const [actions, setActions] = useState(null);
-  //const { scan } = state;
-  const { asset } = state;
-  let myuuid = "";
+  //Parámetros de control de escaneo
+  const [isSaving, setIsSaving] = useState(false);  //Estamos esperando al TAG
+  const [isSaved, setIsSaved] = useState(false);  //Ya hemos guardado la información en el TAG y en el servidor
+
+  const [newAsset, setNewAsset] = useState(null); //Variables para guardar el nuevo activo
+  const [uuid, setUuid] = useState("");   //Variables para guardar el uuid
+  const { asset } = state;  //Traemos la estructura de asset
 
   const createAsset = (event: React.FormEvent<HTMLFormElement>) => {
 
-    myuuid = uuidv4();
-    setUuid(myuuid);
+    //let myuuid = uuidv4();
+    setUuid(uuidv4());
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const nAsset = { ...asset } as any;
     nAsset.name = data.get("asset-name") || "Undefined";
     nAsset.level = data.get("asset-level") || "Undefined";
-    nAsset.uuid = myuuid;
+    nAsset.uuid = uuid;
 
-    console.log("INICIO uuid: " + myuuid);
+    console.log("INICIO uuid: " + uuid);
 
     console.log("CREANDO ASSET");
 
@@ -101,13 +96,16 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
           {isSaving && <Write onUpdateMessage={handleUpdateMessage} uuid={uuid} />}
           <div className="data_content">
             <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" />
-            <TextField type="Usuario" id="asset-level" label="Planta" variant="standard" name="asset-level" />
+            <TextField type="Usuario" id="asset-level" label="Nivel" variant="standard" name="asset-level" />
+
             {isSaved &&
               <div className="data_message">
                 <small>Activo registrado en la base de datos. </small>
                 <small>Tag grabado correctamente.</small>
               </div>}
           </div>
+
+
 
 
           {!isSaved && (!isSaving ? <Button variant="contained" type="submit">REGISTRAR ACTIVO</Button> : <Button variant="contained" color="warning" disabled>REGISTRAR ACTIVO</Button>)}
