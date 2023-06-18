@@ -53,7 +53,7 @@ const Scan = ({ onUpdateMessage }) => {
         case "text":
           const textDecoder = new TextDecoder(record.encoding);
           setMessage(textDecoder.decode(record.data));
-          onUpdateMessage("POCOYO"); // Llamada a la función onUpdateMessage del padre
+          onUpdateMessage(textDecoder.decode(record.data)); // Llamada a la función onUpdateMessage del padre
           break;
         default:
         // TODO: Handle other records with record data.
