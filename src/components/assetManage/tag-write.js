@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 
 const Write = ({ onUpdateMessage, uuid }) => {
   console.log("ESCRIBIENDO EN EL TAG: " + uuid);
-  const [message, setMessage] = useState("");
 
   const onWrite = async () => {
     //message = "MENSAJE";
@@ -18,7 +17,7 @@ const Write = ({ onUpdateMessage, uuid }) => {
         const ndef = new window.NDEFReader();
         // This line will avoid showing the native NFC UI reader
         await ndef.scan();
-        await ndef.write({ records: [{ recordType: "text", data: message }] });
+        await ndef.write({ records: [{ recordType: "text", data: uuid }] });
         onUpdateMessage();
         alert(`Value Saved!`);
       } catch (error) {
