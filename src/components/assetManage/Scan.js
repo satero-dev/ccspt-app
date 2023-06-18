@@ -53,13 +53,12 @@ const Scan = ({ onUpdateMessage }) => {
         case "text":
           const textDecoder = new TextDecoder(record.encoding);
           setMessage(textDecoder.decode(record.data));
+          onUpdateMessage(message); // Llamada a la función onUpdateMessage del padre
           break;
         default:
         // TODO: Handle other records with record data.
       }
     }
-
-    onUpdateMessage(message); // Llamada a la función onUpdateMessage del padre
   };
 
   useEffect(() => {
