@@ -24,6 +24,7 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
   const [state, dispatch] = useAppContext();
   //Parámetros de control de escaneo
   const [isCreated, setIsCreated] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   //const [actions, setActions] = useState(null);
   //const { scan } = state;
@@ -40,9 +41,14 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
     //dispatch({ type: "ADD_ASSET", payload: newAsset });
   };
 
+  const handleUpdateMessage = (newMessage: any) => {
+    setIsSaving(false);
+    setIsSaved(true);
+  };
+
   const saveAsset = () => {
 
-    setIsSaved(true);
+    setIsSaving(true);
 
     console.log("Guardando asset");
 
@@ -67,18 +73,24 @@ const RegisterAssetWindow: React.FC<PopUpProps> = ({ onClose }) => {
             <CloseIcon />
           </div>
           <h3>Registrar nuevo activo</h3>
+          {isSaving && <Write onUpdateMessage={handleUpdateMessage} />}
           <div className="data_content">
             <TextField type="Usuario" id="asset-name" label="Nombre del activo" variant="standard" name="asset-name" />
             <TextField type="Usuario" id="asset-level" label="Planta" variant="standard" name="asset-level" />
-            {isCreated &&
+            {isCreated && !isSaved &&
+              <div className="data_message">
+                <small>Activo registrado en la base de datos. </small>
+                <small>Escanea el tag para asociarlo al activo.</small>
+              </div>}
+            {isSaved &&
               <div className="data_message">
                 <small>Activo registrado en la base de datos. </small>
                 <small>Escanea el tag para asociarlo al activo.</small>
               </div>}
           </div>
 
-          {(!isSaved && !isCreated) ? <Button variant="contained" type="submit">REGISTRAR</Button> : <Button variant="contained" color="warning" onClick={saveAsset}>GRABAR EN TAG</Button>}
-          {isSaved && <Write />}
+          {!isCreated && <Button variant="contained" type="submit">REGISTRAR</Button>}
+          {isCreated && !isSaved && (!isSaving ? <Button variant="contained" color="warning" onClick={saveAsset}>GRABAR EN TAG</Button> : <Button variant="contained" color="warning" disabled>GRABANDO EN TAG</Button>)}
 
 
         </div>
