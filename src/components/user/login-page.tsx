@@ -20,7 +20,7 @@ export const LoginPage = ({ children }: Props) => {
   const [inputPass, setInputPass] = useState("undostrescuatro");
 
   const onLogin = (e: Event) => {
-    console.log("Logging in!: " + e.target);
+    console.log("Logging inn!: " + e.target);
     dispatch({ type: "LOGIN", payload: { user: inputUser, pass: inputPass } })
 
   }
